@@ -1,0 +1,68 @@
+<batch xmlns="http://www.polopoly.com/polopoly/cm/xmlio">
+    <content clear="true">
+        <metadata>
+            <contentid>
+                <major>LayoutElement</major>
+                <externalid>demo.bootstrap.l24.Theme.e</externalid>
+            </contentid>
+            <input-template>
+                <major>InputTemplate</major>
+                <externalid>com.atex.plugins.themes.ThemeElement</externalid>
+            </input-template>
+            <security-parent>
+                <major>Department</major>
+                <externalid>p.siteengine.Configuration.d</externalid>
+            </security-parent>
+        </metadata>
+        <contentref group="polopoly.Content" name="inputTemplateId">
+            <contentid>
+                <major>InputTemplate</major>
+                <externalid>com.atex.plugins.themes.ThemeElement</externalid>
+            </contentid>
+        </contentref>
+
+        <component group="isBase" name="value">false</component>
+        <contentref group="base/baseElement" name="reference">
+            <contentid>
+                <major>LayoutElement</major>
+                <externalid>demo.bootstrapTheme.e</externalid>
+            </contentid>
+        </contentref>
+
+        <component group="polopoly.Content" name="name">London 24 Theme</component>
+
+        <component group="cssdir" name="count">2</component>
+
+        <component group="cssdir[0]/cssfile" name="fileName">LDN24-layout.css</component>
+        <component group="cssdir[0]/cssfile" name="path">root/css/cssdir[0]/cssfile</component>
+
+        <component group="cssdir[1]/cssfile" name="fileName">LDN24-styles.css</component>
+        <component group="cssdir[1]/cssfile" name="path">root/css/cssdir[1]/cssfile</component>
+
+
+        <file encoding="relative" name="root/css/cssdir[0]/cssfile/LDN24-layout.css">files/css/LDN24-layout.css</file>
+        <file encoding="relative" name="root/css/cssdir[1]/cssfile/LDN24-styles.css">files/css/LDN24-styles.css</file>
+
+
+        <file encoding="relative" name="img/bg.png">files/img/bg.png</file>
+        <file encoding="relative" name="img/ldn24-bg-sprite.png">files/img/ldn24-bg-sprite.png</file>
+        <file encoding="relative" name="img/ldn24-social-sprite.png">files/img/ldn24-social-sprite.png</file>
+        <file encoding="relative" name="img/bg.png">files/img/bg.png</file>
+        <file encoding="relative" name="img/ldn24-sprite.png">files/img/ldn24-sprite.png</file>
+        <file encoding="relative" name="img/picture-navigator-bg-1col.png">files/img/picture-navigator-bg-1col.png</file>
+        <file encoding="relative" name="img/picture-navigator-bg-2col.png">files/img/picture-navigator-bg-2col.png</file>
+
+        <file encoding="relative" name="img/quote-bg.png">files/img/quote-bg.png</file>
+        <file encoding="relative" name="img/logo-mobile.png">files/img/logo-mobile.png</file>
+        <file encoding="relative" name="img/shadow-3col.png">files/img/shadow-3col.png</file>
+        <file encoding="relative" name="img/footer-shadow.png">files/img/footer-shadow.png</file>
+        <file encoding="relative" name="img/london-clubs-sprite.png">files/img/london-clubs-sprite.png</file>
+
+        <file encoding="relative" name="img/puff-bottomspeechbubble-mark.png">files/img/puff-bottomspeechbubble-mark.png</file>
+        <file encoding="relative" name="img/puff-logo.png">files/img/puff-logo.png</file>
+        <file encoding="relative" name="img/puff-quotemarks.png">files/img/puff-quotemarks.png</file>
+        <file encoding="relative" name="img/pull-quote-article.gif">files/img/pull-quote-article.gif</file>
+
+
+    </content>
+</batch>

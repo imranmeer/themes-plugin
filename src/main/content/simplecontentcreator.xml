@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template-definition version="1.0" xmlns="http://www.polopoly.com/polopoly/cm/app/xml">
+  <input-template name="com.atex.plugins.themes.SimpleContentCreator">
+    <policy>com.polopoly.cm.app.policy.ContentCreatorPolicy</policy>
+    <editor>com.atex.plugins.themes.widget.OSimpleContentCreatorPolicyWidget</editor>
+    <viewer>com.polopoly.cm.app.widget.OEmptyPolicyWidget</viewer>
+  </input-template>
+  <input-template name="com.atex.plugins.themes.ContentSingleSelect">
+    <policy>com.polopoly.cm.app.policy.ContentSingleSelectPolicy</policy>
+    <editor>com.atex.plugins.themes.widget.OContentSingleSelectPolicyWidget</editor>
+    <viewer>com.atex.plugins.themes.widget.OContentSingleSelectPolicyWidget</viewer>
+  </input-template>
+</template-definition>

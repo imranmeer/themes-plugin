@@ -1,0 +1,2939 @@
+/* ///////////////////////////////////////////////////////
+
+Project : London24 Template
+File    : Base CSS File
+Contents: Styles for the base template. Additional styles should be added on each sites master CSS. This is built to work on top of bootstrap.css
+
+Margins are applied to the bottom of individual widgets, not the top, please continue this trend to ensure spacing is correct.
+
+The CSS is factored into sections, please continue this trend, relecting changes in the tree below
+
+The CSS uses a mobile up approach. When adding CSS start with mobile(small) styles, then add tablet(medium) and desktop(large) styles within the approriate sections.
+---------------------------------------------------------- 
+1.  COMMON TO ALL PAGES
+------------------------
+    1.1 Generic
+    1.2 Header
+    1.3 Footer
+    1.4 Adverts
+    1.5 Cookie Law - NEEDS REVISITING ONCE TESTING WITH NEW TEMPLATE
+------------------------
+2. ELEMENTS
+------------------------
+    2.1 Navigation                          Usually found in header
+    2.2 Search 
+    2.3 Social Media Icons
+    2.4 Weather
+    2.5 Topics
+    2.6 News Ticker
+    2.7 Teasers/Storylist                   Usually found in main content
+        2.7.1   Article - Latest storylist
+    2.8 Picture Navigator
+    2.9 Match Widget
+    2.10    Picture Tiles
+    2.11    Splash
+    2.12    Personalised Storylist
+    2.13    Puff Widgets                    Usually found in right column
+        2.13.1  Promo Puff
+        2.13.2  Quote Puff
+        2.13.3  Local London Puff
+    2.14 Picture Storylist
+------------------------
+3. PAGES
+------------------------
+    3.1 Articles Layout
+        3.1.1   Journalist Header   
+        3.1.2   Utilities
+    3.2 Gallery
+    3.3 Inline Gallery
+    3.4 Gallery Final Slide
+    3.5 Search Results Page
+    3.6 Search Page
+
+NOT INCLUDED
+Adverts haven't been done, CR on advert code is changing (only basic styling will be required)
+Classifieds hasn't been done, as have to build html, will be done in site build
+Any external widgets
+Any widgets TBC
+
+////////////////////////////////////////////////////////*/
+
+/*------------------------------------------------------------------------------------------------------------------------
+1. COMMON TO ALL PAGES
+------------------------------------------------------------------------------------------------------------------------*/
+/*-------------------------------------------------------
+1.1 Generic
+/*-----------------------------------------------------*/
+/*  Default (small)
+-------------------------------------------------------*/
+/* Apply clearfix - Ideally these classes would have an additional class of clearfix, but this is not possible with the following. This needs testing in IE8, as IE8 often has problems with pseudo classes. This solution may need revisiting. */
+.picture-navigator:before, 
+.picture-navigator:after,
+.teaser-extras:before, 
+.teaser-extras:after,
+.teaser-post-extra:before,
+.teaser-post-extra:after,
+.personalised-storylist-selector:before,
+.personalised-storylist-selector:after,
+.article-image-info:before,
+.article-image-info:after,
+.picture-tiles .images:before,
+.picture-tiles .images:after,
+.search-sort-filter:before,
+.search-sort-filter:after {
+	clear: both;
+	content: " ";
+	display: table;
+}
+/* Set bottom margin - All elements on the page should have a margin-bottom, instead of on top for consistency. */
+.story-list, 
+.match-widget,
+.promo-puff,
+.personalised-storylist,
+.footer,
+.stand-first,
+.article-share,
+.article-image.gallery,
+.picture-tiles,
+.splash,
+.gallery-wrapper,
+.advert,
+.search-results-container h1,
+.search-results-container h2,
+.advanced-search h1,
+div.site-search,
+.no-results,
+.search-results-container,
+.promo-puff .custom-quick-link-container,
+.advanced-search .map-container,
+.article p, 
+.trending {
+	margin-bottom: 20px;
+}
+/* Reset header and paragraph margins */
+h1, 
+h2,
+h3,
+h4,
+h5,
+h6,
+p {
+    margin: 0;
+}
+.content-panel,
+.header {
+	margin: 0 10px;
+}
+.alert {
+	margin-bottom: 10px;
+}
+.inner-a{
+	clear: left;
+}
+/* clear: left/right global classes - LP */
+	.clear-left-xs{clear:left;}
+	.clear-right-xs{clear:right;}
+@media (min-width: 800px) {
+	.clear-left-xs{clear:none;}
+	.clear-right-xs{clear:none;}
+
+	.clear-left-sm{clear:left;}
+	.clear-right-sm{clear:right;}
+}
+@media (min-width: 1024px) {
+	.clear-left-xs{clear:none;}
+	.clear-right-xs{clear:none;}
+
+	.clear-left-sm{clear:none;}
+	.clear-right-sm{clear:none;}
+
+	.clear-left-md{clear:left;}
+	.clear-right-md{clear:right;}
+}
+/*-----------------------------------------------------*/
+/*  Large
+-------------------------------------------------------*/
+@media (min-width: 1024px) {
+    /*----- Content containers -----*/
+	.content-b,
+    .inner-b {
+		float: right;
+	}
+	.inner-c.col-md-12 {
+		float: left;
+	}
+	.inner-c.col-md-12.article {
+		padding-right: 10px;
+	}
+    /*----- Fixed width right column -----*/
+	.fixed-b .content-a {
+		width: 100%;
+		margin-right: -330px;
+	}
+	.fixed-b .content-a > .row {
+		margin-right: 320px;
+	}
+	.fixed-b .content-b {
+		width: 330px;
+	}
+}
+/*-------------------------------------------------------
+1.2 Header
+Header styles are dependant on what widgets are present, header styles are therefore applied in the site specific CSS
+/*-----------------------------------------------------*/
+/*  Default (small)
+-------------------------------------------------------*/
+.head-content-container {
+	margin: 20px 0;
+}
+/*-------------------------------------------------------
+1.3 Footer
+Footer styles are dependant on what widgets are present, header styles are therefore applied in the site specific CSS
+/*-----------------------------------------------------*/
+/*  Default (small)
+-------------------------------------------------------*/
+.footer-content { /* make full width */
+	margin: 0 -10px;
+}
+/*-----------------------------------------------------*/
+/*  Large
+-------------------------------------------------------*/
+@media (min-width: 1024px) {
+	.footer-content {
+		margin: 0 10px;
+	}
+}
+/*-------------------------------------------------------
+1.4 Adverts
+/*-----------------------------------------------------*/
+/*  Default (small)
+-------------------------------------------------------*/
+.header .advert-outer {
+    text-align:center;
+    width: 100%;
+}
+/*-----------------------------------------------------*/
+/*  Large
+-------------------------------------------------------*/
+@media (min-width: 1024px) {
+    .header .advert-outer {
+        position: static;
+        margin-top: 61px;
+    }
+}
+
+/*-------------------------------------------------------
+1.5 Cookie Law
+/*-----------------------------------------------------*/
+/*  Default (small)
+-------------------------------------------------------*/
+#cookielaw {
+	bottom: 0;
+	left: 0;
+	position: fixed;
+	right: 0;
+}
+#cookielaw > .row {
+	background-color: #000;
+	margin: 0 auto;
+	max-width: 920px;
+	overflow: hidden;
+	padding: .8em;
+	z-index: 10001;
+}
+#cookielaw .col-sm-8.col-md-8 {
+	padding-bottom: .8em;
+}
+#cookielaw div p {
+	color: #FFF;
+	margin: 0;
+}
+#cookielaw div a {
+	color: #FFF;
+	text-decoration: underline;
+}
+#cookielaw .label {
+	display: block;
+	font-size: 1em;
+	padding: .6em 1em;
+	width: 100%;
+}
+/*-----------------------------------------------------*/
+/*  Large
+-------------------------------------------------------*/
+@media (min-width: 1024px) {
+	#cookielaw > .row {
+		max-width: 700px;
+	}
+	#cookielaw > .row > .col-md-8,
+    #cookielaw > .row > .col-sm-4 {
+		padding: 0;
+	}
+	#cookielaw .label {
+		float: right;
+		padding: .8em 1em;
+		text-decoration: none;
+		width: 160px;
+	}
+	#cookielaw > .row {
+		max-width: 920px;
+	}
+	#cookielaw > .row > .col-md-8,
+    #cookielaw > .row > .col-sm-4 {
+		padding: 0 15px;
+    }
+}
+/*------------------------------------------------------------------------------------------------------------------------
+2.  ELEMENTS
+------------------------------------------------------------------------------------------------------------------------*/
+/*-------------------------------------------------------
+2.1 Navigation
+/*-----------------------------------------------------*/
+/*  Default (small)
+-------------------------------------------------------*/
+nav {
+	margin-top: 20px;
+}
+.navbar {
+	margin-bottom: 0;
+}
+.navbar-collapse {
+	max-height: 100%;
+}
+.navbar-collapse.in {
+	overflow-y: visible;
+}
+.navbar-header,
+.nav-search-bar input[type="text"]{
+	width: 100%;
+}
+.nav-search-bar {
+	position: relative;
+}
+.nav-search-bar button[type="submit"] {
+	position: absolute;
+	top: 0;
+}
+/* Hides secondary nav bar used for desktop, primary drop only used on desktop, second level drop for mobile, third level drop for mobile and secondary drop optional content used for desktop */
+.logo-container-desktop,
+.navbar-collapse > .secondary,
+.primary-drop,
+.secondary, 
+.secondary-drop,
+.secondary-drop .drop-content-b {
+	display: none;
+}
+.nav-search-bar {
+	margin: 10px 0;
+}
+.nav-search-bar input[type="text"] {
+	padding: 2.5px;
+}
+.nav-search-bar button[type="submit"] {
+	right: 0;
+}
+.navbar-header{
+    position: relative;
+}
+.navbar-toggle {
+    position:absolute;
+    bottom: 11px;
+    right: 0;
+}
+/*  Primary and below
+-------------------------------------------------------*/
+.nav {
+	font-size: 18px;
+	font-weight: 700;
+}
+.nav li {
+	list-style: none;
+}
+.nav > li > a {
+	padding: 20px 0 20px 20px;
+	position: static;
+}
+
+/*  Primary - mobile menu arrows
+---------------------------------------------*/
+.nav-arrow {
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 15px 0 15px 30px;
+	border-color: transparent transparent transparent #000;
+	position: absolute;
+	right: 18px;
+	top: 18px;
+	cursor: pointer;
+}
+.nav-arrow-open {
+	width: 0;
+	height: 0;
+	border-style: solid;
+	border-width: 30px 15px 0 15px;
+	border-color: #000 transparent transparent;
+	position: absolute;
+	right: 24px;
+	top: 18px;
+	cursor: pointer;
+}
+/*  Secondary and below
+-------------------------------------------------------*/
+.secondary.nav {
+	font-size: 16px;
+}
+.secondary.nav > li > a {
+	padding: 15px 0 15px 30px;
+}
+.primary li.active > ul.secondary,
+.primary li.active > ul.secondary li.active .secondary-drop { /* shows second or third level if page is active */
+	display: block;
+}
+/*  Secondary - mobile menu arrows
+---------------------------------------------*/
+.secondary .nav-arrow {
+	top: 12px;
+}
+.secondary .nav-arrow-open {
+	top: 12px;
+}
+.navbar-secondary-container .nav-arrow {
+    display: none;
+}
+/*  Tertiary and below
+-------------------------------------------------------*/
+.secondary-drop .nav {
+	font-size: 14px;
+}
+.secondary-drop .nav > li > a {
+	padding: 10px 0 10px 40px;
+}
+/*-----------------------------------------------------*/
+/*  Large
+-------------------------------------------------------*/
+@media (min-width: 1024px) {
+    /*  Primary and below
+    -------------------------------------------------------*/
+	.nav {
+		font-size: 16px;
+	}
+	.navbar-primary-container {
+		margin-top: 74px;
+	}
+	.nav-arrow,
+    .nav-arrow-open,
+    .logo-container-mobile {
+		display: none;
+	}
+	.nav-search-bar input[type="text"] {
+		width: auto;
+		float: right;
+	}
+	.nav-search-bar button[type="submit"] {
+		position: static;
+		float: right;
+	}
+	.nav li {
+		float: left; /* creates inline navigation bar */
+		position: static;
+	}
+	.logo-container-desktop,
+    .primary-drop .drop-content-a,
+    .primary-drop .drop-content-b, 
+    .secondary-drop .drop-content-a,
+    .secondary-drop .drop-content-b{
+		display: block;
+		float: left;
+	}
+	.nav > li > a {
+		padding: 10px 20px;
+	}
+	.primary li:hover .primary-drop,
+    .secondary li:hover .secondary-drop{  /* show on hover of first level nav or show on hover of second level nav */
+		display: block;
+	}
+	.primary li .primary-drop,
+    .secondary li .secondary-drop { /* sets both hover drops to absolute position to parent li */
+		position: absolute;
+		z-index: 10;
+	}
+	.primary li.active > ul.secondary {
+		display: none !important;
+	}
+    /*  Secondary and below
+    -------------------------------------------------------*/
+	.secondary.nav {
+		font-size: 14px;
+		font-weight: 400;
+	}
+	.navbar-secondary-container > .secondary { /* displays secondary nav outside of primary hidden on mobile */
+		display: block;
+		margin-left: 0;
+	}
+	.primary li.active > ul.secondary {
+		padding-left: 1px;
+		position: absolute;
+		left: 0;
+		width: 100%;
+	}
+	.secondary.nav > li {
+		padding: 6px 22px;
+	}
+	.secondary.nav .secondary-drop li a,
+    .nav li > .primary-drop ul.nav > li > a,
+    .secondary.nav > li > a
+    {
+		padding: 0;
+	}
+	.secondary.nav > li a {
+		padding-right: 22px;
+	}
+    /*  Primary drop and below
+    -------------------------------------------------------*/
+	.primary-drop li,
+    .secondary-drop li /* sets to display elements as standard list */ {
+		float: none;
+	}
+	.nav.primary-drop,
+    .nav.secondary-drop {
+		background-color: #FFF;
+		border: 1px solid;
+		border-top: none;
+		margin-top: 0;
+	}
+	.nav li > .primary-drop ul.nav > li,
+    .nav li > .primary-drop ul.nav > li > a {
+		border: none;
+		font-size: 14px;
+	}
+    /*  Primary Drop left content
+    ---------------------------------------------*/
+    .drop-content-a,
+    .drop-content-b {
+        margin: 20px;
+    }
+    .drop-content-a > ul {
+		list-style-type: none;
+		margin-left: 1em;
+		padding-right: 15px;
+		position: relative;
+	}
+	.drop-content-a > ul > li {
+		padding: 10px;
+	}
+	.drop-content-a > ul > li:first-child {
+		padding-top: 0;
+	}
+	.drop-content-a > ul > li:before { /* Custom bullet points, so can be coloured */
+		content: "\2022";
+		left: -1em;
+		position: absolute;
+	}
+    /*  Primary Drop right content
+    ---------------------------------------------*/
+	.drop-content-b {
+		padding-left: 20px;
+	}
+	ul.primary.nav li .drop-content-b > a,
+    ul.secondary.nav li .drop-content-b > a {
+		color: #808D8E;
+		border: none;
+		display: block;
+		font-size: 14px;
+		margin-bottom: 10px;
+	}
+	.drop-content-b ul li {
+		font-weight: 400;
+		padding: 2px 0;
+	}
+	li > .primary-drop.nav .drop-content-b ul li {
+		padding: 2px 0;
+	}
+    /*  Secondary Drop and below
+    ---------------------------------------------*/
+	.secondary-drop { /* takes indent step out of the secondary drop used for mobile and hides drop down */
+		margin-left: 0;
+		display: none;
+	}
+	.navbar-secondary-container .nav.secondary-drop {
+		/*margin-left: -23px;*/
+		margin-top: 23px;
+	}
+}
+/*-------------------------------------------------------
+2.2 Search
+/*-----------------------------------------------------*/
+/*  Default (small)
+-------------------------------------------------------*/
+.site-search > p,
+.site-search label,
+.site-search .plus {
+	display: none;
+}
+.site-search input {
+	width: 100%;
+}
+/* To match Boostrap .form-control, without .form-control class, if Search element is ammended add the class of .form-control to the input, then the following styles will not be required. */
+input.search-term {
+	display: block;
+	width: 100%;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075);
+	-webkit-transition: border-color ease-in-out .10s, box-shadow ease-in-out .10s;
+	transition: border-color ease-in-out .10s, box-shadow ease-in-out .10s;
+}
+input.search-term:focus {
+	border-color: #66afe9;
+	outline: 0;
+	-webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
+	box-shadow: inset 0 1px 1px rgba(0, 0, 0, .075), 0 0 8px rgba(102, 175, 233, .6);
+}
+input.search-term[disabled],
+input.search-term[readonly],
+fieldset[disabled] input.search-term {
+	cursor: not-allowed;
+	background-color: #EEE;
+}
+/* Bootstrap .form-control duplication end */
+.site-search fieldset {
+	display: inline;
+	position: relative;
+	width: 100%;
+}
+.site-search .search-term, 
+.site-search .form-control {
+	border: 1px solid #000;
+	color: #999;
+	padding: 10px;
+}
+.site-search .btn {
+	background: rgba(0, 0, 0, 0) url("#file({'filename': 'img/base-sprite.png', 'contentId': $content.contentId, '':''})") no-repeat;
+	background-position: 2px -22px;
+	background-size: auto;
+	color: transparent;
+	height: 37px;
+	margin: 1px;
+	padding: 0;
+	position: absolute;
+	right: 0;
+	top: 0;
+	width: 38px;
+}
+/*-----------------------------------------------------*/
+/*  Large
+-------------------------------------------------------*/
+@media (min-width: 1024px) {
+	.site-search fieldset {
+		margin-top: 20px;
+		padding: 0;
+	}
+	.site-search .search-term {
+		float: right;
+		padding: 4px;
+		width: 250px;
+	}
+	.site-search .btn {
+		background-position: -32px -24px;
+		height: 25px;
+		width: 25px;
+	}
+}
+/*-------------------------------------------------------
+2.3 Social Media Icons
+/*-----------------------------------------------------*/
+/*  Default (small)
+-------------------------------------------------------*/
+.social-icons {
+	float: right;
+}
+.social-icon {
+	float: left;
+	padding-left: 10px;
+}
+/*-----------------------------------------------------*/
+/*  Large
+-------------------------------------------------------*/
+@media (min-width: 1024px) {
+	.social-icon img {
+		height: 25px;
+		width: 25px;
+	}
+}
+/*-------------------------------------------------------
+2.4 Weather
+/*-----------------------------------------------------*/
+/*  Default (small)
+-------------------------------------------------------*/
+.weather-header .location,
+.weather-header .temperature {
+	border-right: 1px solid;
+	padding-right: 10px;
+}
+.weather-header .weather-image,
+.weather-header .temperature,
+.weather-header .forecast-link {
+	padding-left: 10px;
+}
+.weather-image {
+	width: 30px;
+}
+#my-weather-modal {
+	overflow-y: auto;
+	left: 0;
+	z-index: 30000;
+}
+html body.modal-open {
+	margin-right: 0;
+}
+/*  Modal
+---------------------------------------------*/
+#weather-location input,
+#weather-location .btn {
+    margin: 10px;
+}
+#weather-location input {
+    padding: 10px;
+}
+#weather-location .btn {
+    height: 39px;
+}
+/*-----------------------------------------------------*/
+/*  Large
+-------------------------------------------------------*/
+@media (min-width: 1024px) {
+    .weather-header {
+    float:left;
+    }
+}
+/*-------------------------------------------------------
+2.5 Topics
+/*-----------------------------------------------------*/
+/*  Default (small)
+-------------------------------------------------------*/
+.topics {
+	margin: 10px 20px;
+}
+.topics > h3, .topics > ul {
+	display: inline-block;
+	margin: 0;
+}
+.topics > h3 {
+	margin-right: 10px;
+}
+.topics > ul {
+	list-style: none outside none;
+	padding-left: 0;
+}
+.topics > ul > li {
+	border-left: 1px solid;
+	float: left;
+	padding: 0 10px;
+}
+.topics .topic-title,
+.topics .first {
+	border: medium none;
+	padding-left: 0;
+}
+/*-----------------------------------------------------*/
+/*  Large
+-------------------------------------------------------*/
+@media (min-width: 1024px) {
+	.topics, .ticker-container {
+		float: right;
+		margin-left: 5px;
+		margin-right: 0;
+	}
+}
+/*-------------------------------------------------------
+2.6 News Ticker
+/*-----------------------------------------------------*/
+/*  Default (small)
+-------------------------------------------------------*/
+.breaking-news {
+	white-space: nowrap;
+	text-overflow: ellipsis;
+	overflow: hidden;
+	position: relative;
+}
+.breaking-news-label {
+	display: none;
+}
+.breaking-news ul {
+	display: block;
+}
+.breaking-news-headline {
+	float: left;
+}
+.breaking-news ul li {
+	list-style: none;
+}
+.breaking-news, .breaking-news ul li a {
+	color: #FFF;
+}
+.breaking-news .tickercontainer .mask {
+	padding: 5px;
+	top: 0;
+}
+.ticker-container {
+	font-size: 12px;
+	margin: 10px 0;
+	position: relative;
+}
+.tickercontainer {
+	background: #F00;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+	overflow: hidden;
+}
+ul.newsticker {
+	transition: all 0 linear;
+	position: relative;
+	list-style-type: none;
+	margin: 0;
+	padding: 10px 5px;
+}
+ul.newsticker li {
+	float: left;
+	margin: 0;
+	padding-right: 15px;
+}
+ul.newsticker a {
+	white-space: nowrap;
+	padding: 0;
+	margin: 0 25px 0 0;
+}
+/*-----------------------------------------------------*/
+/*  Large
+-------------------------------------------------------*/
+@media (min-width: 1024px) {
+	.ticker-container {
+		max-width: 70%;
+	}
+	.breaking-news-label {
+		bottom: 0;
+		color: #FFF;
+		display: block;
+		position: absolute;
+		padding: 10px;
+		top: 0;
+	}
+}
+/*-------------------------------------------------------
+2.7 Teasers/Storylist 
+/*-----------------------------------------------------*/
+/*  Default (small)
+-------------------------------------------------------*/
+.teaser {
+	margin: 10px 0;
+}
+/*  Header
+---------------------------------------------*/
+.inpage,
+.personalised-storylist-top h1,
+.personalised-storylist-top h2,
+.personalised-storylist-top h3,
+.personalised-storylist-top h4 {
+	background-color: #428BCA;
+	color: #FFF;
+	padding: 12px 15px;
+}
+.inpage > a,
+.personalised-storylist-top a{
+	color: #FFF;
+}
+.inpage > a:hover,
+.personalised-storylist-top a:hover {
+	text-decoration: underline;
+}
+h1.inpage,
+.personalised-storylist-top h1 {
+	font-size: 24px;
+}
+h2.inpage,
+.personalised-storylist-top h2 {
+	font-size: 18px;
+}
+h3.inpage,
+.personalised-storylist-top h3 {
+	font-size: 18px;
+}
+h4.inpage,
+.personalised-storylist-top h4 {
+	font-size: 14px;
+}
+.teaser-title,
+.teaser-title > h1,
+.teaser-title > h2,
+.teaser-title > h3,
+.teaser-title > h4,
+.teaser-extras,
+.teaser-image{
+	margin-bottom: 10px;
+}
+/*  Headline
+---------------------------------------------*/
+.teaser-label {
+	color: #D11414;
+	font-size: 11px;
+	margin-right: 10px;
+	padding: 2px 6px;
+}
+.teaser-title a {
+	vertical-align: middle;
+}
+/*  Time & Author
+---------------------------------------------*/
+.teaser-extras span {
+	float: left;
+}
+.teaser .time, 
+.teaser-post-extra,
+.teaser-related a {
+	padding-right: 10px;
+}
+.teaser .byline,
+.teaser .media-icon{
+	border-left: 1px solid;
+}
+.teaser .byline {
+	padding-left: 10px;
+	padding-right: 10px;
+}
+.teaser .media-icon {
+	padding: 3px 10px;
+}
+/*  Image
+---------------------------------------------*/
+.teaser-image img {
+	width: 100%;
+}
+/*  Related
+---------------------------------------------*/
+.teaser-related > ul {
+	padding-left: 0;
+}
+/*  Massive Teaser
+---------------------------------------------*/
+.story-list .massive-teaser-item.teaser {
+	margin-bottom: 20px;
+	padding: 10px 15px;
+	position: relative;
+}
+.massive-teaser-item .teaser-content > p {
+	margin-bottom: 5px;
+}
+.massive-teaser-item .teaser-extras, 
+.massive-teaser-item .teaser-post-extra {
+	float: left;
+}
+.massive-teaser-item .teaser-content,
+.inner-a .massive-teaser-item .teaser-post-extra, 
+.inner-b .massive-teaser-item .teaser-post-extra {
+	margin-bottom: 10px;
+}
+.massive-teaser-item .teaser-post-extra .teaser-label {
+    display: none;
+}
+/*
+.massive-teaser-item .teaser-label {
+	left: 15px;
+	position: absolute;
+	top: 10px;
+}
+*/
+.massive-teaser-item .teaser-image {
+	clear: left;
+}
+.massive-teaser-item .teaser-related {
+	padding-top: 10px;
+}
+.teaser-related > ul {
+	list-style-type: none;
+	margin-left: 15px;
+	position: relative;
+}
+.teaser-related li:before { /* Custom bullet points, so can be coloured */
+	content: "•";
+	left: -1em;
+	position: absolute;
+}
+.massive-teaser-item .teaser-related .teaser-label {
+	position: static;
+}
+.massive-teaser-item > .media-icon {
+	display: none;
+}
+/*  2 Column Massive Teaser
+-----------------------------------*/
+.inner-c .massive-teaser-item .teaser-related,
+.inner-c .massive-teaser-item .teaser-image {
+	width: 100%;
+}
+.inner-c .massive-teaser-item .teaser-image {  /* display image on left */
+	float: left;
+}
+/*  Large Teaser
+---------------------------------------------*/
+.teaser .picture-navigator {
+	margin: 0;
+	padding: 0;
+}
+/*  Medium 2col Teaser
+---------------------------------------------*/
+.medium2col-teaser-item .teaser-content > p {
+	margin-bottom: 10px;
+}
+/*  Headline Teaser
+---------------------------------------------*/
+.headline-teaser-item .teaser-title a {
+	margin-right: 10px;
+}
+.headline-teaser-item .teaser-title > h1, 
+.headline-teaser-item .teaser-title > h1 a, 
+.headline-teaser-item .teaser-title > h2, 
+.headline-teaser-item .teaser-title > h2 a, 
+.headline-teaser-item .teaser-title > h3, 
+.headline-teaser-item .teaser-title > h3 a, 
+.headline-teaser-item .teaser-title > h4, 
+.headline-teaser-item .teaser-title > h4 a {
+	margin-bottom: -10px;
+}
+/*-----------------------------------------------------*/
+/*  Content based query
+-------------------------------------------------------*/
+@media (min-width: 900px) {
+	.inner-c .massive-teaser-item .teaser-related {
+		width: 30%;
+	}
+}
+/*-----------------------------------------------------*/
+/*  Large
+-------------------------------------------------------*/
+@media (min-width: 1024px) {
+    /*  2 Column Massive Teaser
+    -----------------------------------*/
+	.inner-c .massive-teaser-item .teaser-image { /* display image on left */
+		width: 68%;
+	}
+	.inner-c .massive-teaser-item .teaser-content, /* display text and related on right */
+    .inner-c .massive-teaser-item .teaser-related {
+		float: left;
+		margin-left: 2%;
+		width: 30%;
+	}
+	.inner-c .massive-teaser-item .teaser-related {
+		width: 100%;
+	}
+	.inner-c .massive-teaser-item > .media-icon {
+		display: block;
+	}
+    /*  Medium Teaser
+    -----------------------------------*/
+	.medium-teaser-item .teaser-image {
+		width: 49.2%;
+		float: left;
+		margin-right: 10px;
+		margin-bottom: 3px;
+	}
+    /*  Medium 2col Teaser
+    ---------------------------------------------*/
+	.inner-c .medium2col-teaser-item .teaser-image {
+		float: left;
+		width: 35%;
+	}
+	.inner-c .medium2col-teaser-item .teaser-title, 
+    .inner-c .medium2col-teaser-item .teaser-content, 
+    .inner-c .medium2col-teaser-item .teaser-post-extra {
+		float: right;
+		margin-left: 2%;
+		width: 63%;
+	}
+	.inner-c .medium2col-teaser-item .teaser-post-extra {
+		margin-right: 0;
+	}
+    /*  Small Teaser
+    ---------------------------------------------*/
+	.small-teaser-item .teaser-title > h2, 
+    .small-teaser-item .teaser-title > h3, 
+    .small-teaser-item .teaser-title > h4,
+    .small-teaser-item .teaser-title span {
+		margin-left: 10px;
+	}
+	.small-teaser-item .teaser-image { /* floats image left and needs defined width */
+		float: left;
+		width: 36.6%;
+	}
+	.small-teaser-item .teaser-title,
+    .small-teaser-item .teaser-post-extra { /* floats information right and needs defined width to do so - p.s. title wont wrap due to structure */
+		float: right;
+		margin-bottom: 0;
+		width: 63.4%;
+	}
+	.small-teaser-item.teaser .media-icon {
+		margin-left: 0;
+	}
+}
+/*-------------------------------------------------------
+2.7.1   Article - Latest storylist
+/*-----------------------------------------------------
+These styles below are use to display meduim teasers horizontally, most commonly used below the main content on an article page. Storylists containing other types of teaser can be used instead, but they will be displayed as normal teasers. If required these can be styles in site specific CSS. 
+/*-----------------------------------------------------*/
+/*  Default (small)
+-------------------------------------------------------*/
+.latest .medium-teaser-item {
+	padding-top: 0;
+	padding-bottom: 20px;
+	margin-bottom: 10px;
+}
+.latest .medium-teaser-item .teaser-image { /* make image full width */
+	float: none;
+	margin-bottom: 10px;
+	margin-top: 10px;
+	width: 100%;
+}
+/*-----------------------------------------------------*/
+/*  Large
+-------------------------------------------------------*/
+@media (min-width: 1024px) {
+	.latest .medium-teaser-item { /* arrange horizontally */
+		float: left;
+		margin-right: 3.4%;
+		width: 31.06%;
+	}
+	.latest .medium-teaser-item:last-child {
+		margin-right: 0;
+	}
+	.latest .medium-teaser-item .teaser-title {
+		min-height: 60px;
+	}
+}
+/*-------------------------------------------------------
+2.8 Picture Navigator
+/*-----------------------------------------------------*/
+/*  Default (small)
+-------------------------------------------------------*/
+.picture-navigator {
+	padding: 10px 15px;
+	margin-bottom: 20px;
+	position: relative;
+}
+#carousel-text {
+	margin: 10px 0;
+	width: 100%;
+}
+#carousel-text a{
+	display: block;
+}
+#carousel-text h2 {
+	margin: 0;
+}
+.picture-navigator .thumbnail {
+	border: none;
+}
+.item img {
+	width: 100%;
+}
+/*  Controls
+---------------------------------------------*/
+.carousel-control {
+	bottom: auto;
+	top: 40%;
+	font-size: 300%;
+}
+.carousel-control.left {
+	width: 0;
+	height: 0;
+	margin-left: 10px;
+}
+.carousel-control.right {
+	width: 0;
+	height: 0;
+	margin-right: 50px;
+}  
+/*  Thumbnails
+---------------------------------------------*/
+#slider-thumbs ul {
+	list-style: none;
+	padding: 0;
+}
+.thumbnails {
+	margin-bottom: 0;
+}
+.thumbnails li {
+    float: left;
+}
+.thumbnail {
+	background-color: transparent/* overides bootstrap background colour */
+}
+.thumbnail img {
+	border: 1px solid;
+}  
+/*  Widths depending on number of images
+---------------------------------------------*/
+.two .thumbnails li {
+	width: 50%;
+}
+.three .thumbnails li {
+	width: 33.33%;
+}
+.four .thumbnails li {
+	width: 25%;
+}
+.five .thumbnails li {
+	width: 20%;
+}
+/*  Vertical layout general layout
+---------------------------------------------*/
+.vertical #carousel-text h2 {
+	margin: 0;
+}
+.vertical .thumbnails {
+	margin-bottom: 0;
+}
+.vertical .thumbnails > li:last-child a {
+	padding-bottom: 0;
+}
+.vertical .thumbnail {
+	padding-bottom: 10;
+}
+/*-----------------------------------------------------*/
+/*  Large
+-------------------------------------------------------*/
+@media (min-width: 1024px) {
+	.carousel-control {
+		font-size: 200%;
+		top: 48%;
+	}
+    /*  Vertical layout general layout
+    ---------------------------------------------*/ 
+	.vertical #slider-thumbs,
+    .vertical #carousel-bounding-box {
+		float: left;
+	}
+	.vertical #carousel-bounding-box {
+		padding-right: 2.5%;
+		width: 100%;
+	}
+	.vertical #slider-thumbs {
+		padding-left: 1.8%;
+	}
+	.vertical .thumbnails li {
+		float: none;
+		width: 100%;
+	}
+	.vertical #carousel-text {
+		margin-bottom: 0;
+		margin-top: 10px;
+	}
+    /*  Controls
+    ---------------------------------------------*/
+	.vertical .carousel-control.left {
+		left: auto;
+		right: -18%;
+		top: 0;
+	}
+	.vertical .carousel-control.right {
+		bottom: 25px;
+		left: auto;
+		margin-right: 0;
+		right: -18%;
+		top: auto;
+	}
+	.vertical .glyphicon-chevron-left:before {
+		content: "\e113";
+	}
+	.vertical .glyphicon-chevron-right:before {
+		content: "\e114";
+	}
+    /*  Widths depending on number of images
+    ---------------------------------------------*/
+	.vertical.two .carousel {
+		margin-right: 36.4%;
+	}
+	.vertical.two #slider-thumbs {
+		margin-left: -36.4%;
+		width: 36.4%;
+	}
+	.vertical.two .carousel-control.left,
+    .vertical.two .carousel-control.right {
+		right: -28.5%;
+	}
+	.vertical.three .carousel {
+		margin-right: 25.2%;
+	}
+	.vertical.three #slider-thumbs {
+		margin-left: -25.2%;
+		width: 25.2%;
+	}
+	.vertical.three .carousel-control.left,
+    .vertical.three .carousel-control.right {
+		right: -17%;
+	}
+	.vertical.four .carousel {
+		margin-right: 20.4%;
+	}
+	.vertical.four #slider-thumbs {
+		margin-left: -20.4%;
+		width: 20.4%;
+	}
+	.vertical.four .carousel-control.left,
+    .vertical.four .carousel-control.right {
+		right: -13%;
+	}
+	.vertical.five .carousel {
+		margin-right: 17.1%;
+	}
+	.vertical.five #slider-thumbs {
+		margin-left: -17.1%;
+		width: 17.1%;
+	}
+	.vertical.five .carousel-control.left,
+    .vertical.five .carousel-control.right {
+		right: -10.5%;
+	}
+}
+/*-------------------------------------------------------
+2.9 Match Widget
+/*-----------------------------------------------------*/
+/*  Default (small)
+-------------------------------------------------------*/
+.match-widget > h1,
+.match-widget > h2,
+.match-widget > h3,
+.match-widget > h4 {
+	padding: 20px;
+	text-align: center;
+}
+.match-widget ul {
+	margin-bottom: 0;
+}
+li.match {
+	padding: 5px 0;
+}
+.match li {
+	margin: 0 10px;
+}
+li.fixture {
+	font-size: 1.2em;
+	margin: 5px 10px;
+}
+/*-------------------------------------------------------
+2.10    Picture Tiles
+/*-----------------------------------------------------*/
+/*  Default (small)
+-------------------------------------------------------*/
+.title-banner-inner {
+	clear: both;
+}
+.title-banner h2 {
+	padding: 15px;
+	text-align: center;
+}
+.title-banner .custom-link {
+	display: block;
+	text-align: center;
+}
+.picture-tiles .large-image {
+	margin-bottom: .5%;
+}
+.picture-tiles .image-1 > img {
+	width: 100%;
+}
+.picture-tiles .small-images img {
+	display: block;
+	float: left;
+	width: 49.75%;
+}
+.picture-tiles .image-2 > img {
+	margin-right: .5%;
+}
+/*-----------------------------------------------------*/
+/*  Large
+-------------------------------------------------------*/
+@media (min-width: 1024px) {
+	.title-banner h2,
+    .picture-tiles .images > div {
+		float: left;
+	}
+    .picture-tiles h2 {
+        font-size: 18px;
+    }
+	.title-banner .custom-link {
+		float: right;
+		margin: 15px;
+	}
+	.picture-tiles .large-image {
+		margin-bottom: 0;
+		margin-right: .5%;
+		width: 66.6%;
+	}
+	.picture-tiles .small-images {
+		width: 32.9%;
+	}
+	.picture-tiles .small-images img {
+		width: 100%;
+	}
+	.picture-tiles .image-2 > img {
+		margin-bottom: 1.5%;
+		margin-right: 0;
+	}
+}
+/*-------------------------------------------------------
+2.11    Splash
+/*-----------------------------------------------------*/
+/*  Default (small)
+-------------------------------------------------------*/
+.splash img {
+	width: 100%;
+}
+.splash h1, 
+.splash h2, 
+.splash h3, 
+.splash h4 {
+	padding: 20px;
+}
+/*-----------------------------------------------------*/
+/*  Large
+-------------------------------------------------------*/
+@media (min-width: 1024px) {
+	.splash.text-overlay {
+		position: relative;
+	}
+	.splash.text-overlay h1,
+    .splash.text-overlay h2,
+    .splash.text-overlay h3,
+    .splash.text-overlay h4 {
+		bottom: 0;
+		left: 0;
+		position: absolute;
+		width: 100%;
+	}
+}
+/*-------------------------------------------------------
+2.12    Personalised Storylist
+/*-----------------------------------------------------*/
+/*  Default (small)
+-------------------------------------------------------*/
+.personalised-storylist .personalised-storylist-top,
+.personalised-storylist .headline-teaser-item {
+	margin-bottom: 10px;
+}
+/*  Title/button
+---------------------------------------------*/
+.personalised-storylist-selector {
+	padding: 10px;
+}
+.personalised-storylist-selector > label {
+	margin-top: 8px;
+	margin-right: 10px;
+}
+.btn b.caret {
+	margin-left: 5px;
+}
+.personalised-storylist .btn-group {
+	float: right;
+}
+/*  Dropdown
+---------------------------------------------*/
+.personalised-storylist .dropdown-menu {
+	left: auto;
+	right: 0;
+}
+.personalised-storylist .dropdown-group {
+	border-bottom: 1px solid;
+	border-top: 1px solid;
+	margin: 0;
+	padding: 10px 20px;
+	height: 100%;
+	font-weight: 700;
+	width: 100%;
+}
+.personalised-storylist .confirm.btn {
+	border-left: none;
+	border-right: none;
+	border-bottom: none;
+	color: #1B4977;
+	font-weight: 600;
+	margin-top: 10px;
+	width: 100%;
+}
+/*  Teaser Content
+---------------------------------------------*/
+.personalised-storylist-content {
+	margin: 10px;
+}
+.dropdown-container > li > a > label {
+	margin: 0;
+	height: 100%;
+	cursor: pointer;
+	font-weight: 400;
+}
+.personalised-storylist .teaser {
+	margin: 10px 0;
+	max-height: 0;
+	overflow: hidden;
+	padding-top: 0;
+	transition: max-height .5s;
+}
+.personalised-storylist .teaser.fade-in {
+	max-height: 600px;
+	transition: max-height 3s;
+}
+.personalised-storylist .headline-teaser-item.teaser a,
+.personalised-storylist .headline-teaser-item.teaser h4 {
+	margin: 0;
+	margin-bottom: 5px;
+}
+.personalised-storylist .teaser-label {
+	display: table;
+	margin-bottom: 5px;
+}
+.personalised-storylist .media-icon {
+	border: none;
+}
+/*  Refresh Button
+---------------------------------------------*/
+.personalised-storylist-bottom > a {
+	display: block;
+	margin: 20px 0;
+	text-align: center;
+	width: 100%;
+}
+/*-------------------------------------------------------
+2.13    Promo Widgets
+/*-----------------------------------------------------*/
+/*  Default (small)
+-------------------------------------------------------*/
+.image-container img{
+    width:100%;
+}
+/*-------------------------------------------------------
+2.13.1  Promo Puff
+/*-----------------------------------------------------*/
+/*  Default (small)
+-------------------------------------------------------*/
+.puff-content {
+	padding: 0 20px;
+}
+.content-text {
+	margin-bottom: 0;
+}
+/*-------------------------------------------------------
+2.13.2  Quote Puff
+/*-----------------------------------------------------*/
+/*  Default (small)
+-------------------------------------------------------*/
+.quote-puff .title {
+	padding: 10px 0;
+}
+.quote-puff .quote-container {
+	position: relative;
+	width: 100%;
+}
+.quote-puff .quote-container .quote-mark {
+	position: absolute;
+	font-size: 1000%;
+	margin: 0;
+}
+.quote-puff .quote-container .quote-mark.first {
+	top: -60px;
+	left: 0;
+}
+.quote-puff .quote-container h1,
+.quote-puff .quote-container h2,
+.quote-puff .quote-container h3,
+.quote-puff .quote-container h4 {
+	padding: 40px;
+}
+.quote-puff .quote-container .quote-mark.second {
+	right: 0;
+	bottom: -120px;
+}
+.quote-puff .attribute {
+	float: right;
+}
+/*-------------------------------------------------------
+2.13.3  Local London Puff
+/*-----------------------------------------------------*/
+/*  Default (small)
+-------------------------------------------------------*/
+.local-promo-puff .editor-quick-links .custom-quick-link-container {
+	float: left;
+}
+.promo-puff .dropdown,
+.promo-puff .image-container{
+	margin-bottom: 15px;
+}
+.promo-puff .caret {
+	margin-left: 10px;
+}
+.custom-quick-link-container {
+	padding-right: 2%;
+	width: 50%;
+}
+.custom-quick-link-container.even, 
+.custom-quick-link-container:nth-child(2n) {
+	padding-left: 2%;
+	padding-right: 0;
+}
+.local-promo-puff .btn {
+	background-color: #FFF;
+	border: 1px solid;
+}
+/*-------------------------------------------------------
+2.13.3  Picture Storylist
+/*-----------------------------------------------------*/
+/*  Default (small)
+-------------------------------------------------------*/
+.picture-storylist-container .storylist-item {
+    width: 86%;
+    margin: 10px 7% 10px 7%;
+    float: left;
+}
+.picture-storylist-container .storylist-item img {
+    margin-bottom: 10px;
+	width: 100%;
+}
+.picture-storylist-container .storylist-item a {
+    margin: 5px 0 0 0;
+}
+.picture-storylist-container .carousel-control {
+    bottom:auto;
+    top: 50%;
+    width: auto;
+    margin-top: -10px;
+}
+.picture-storylist-container .carousel-control.left, 
+.picture-storylist-container .carousel-control.right {
+    margin: 0;
+}
+/*-----------------------------------------------------*/
+/*  Large
+-------------------------------------------------------*/
+@media (min-width: 1024px) {
+	.picture-storylist-container .storylist-item{
+		width: 20%;
+		margin: 10px 0 10px 4% ;
+	}
+}
+/*------------------------------------------------------------------------------------------------------------------------
+3.  PAGES
+------------------------------------------------------------------------------------------------------------------------*/
+/*-------------------------------------------------------
+3.1 Article Layout
+/*-----------------------------------------------------*/
+/*  Default (small)
+-------------------------------------------------------*/
+.article,
+.article .image,
+.article img {
+	width: 100%;
+}
+.article h1,
+.article h2,
+.article h3,
+.article h4 {
+	margin: 10px 0;
+}
+body > img {
+  display: block;
+}
+.sponsored-by { /* move sponsored by to the roight inline with the date */
+	color: #FFF; /* to hide text on mobile */
+	margin-top: -24px;
+	max-height: 40px;
+	position: absolute;
+	right: 20px;
+}
+.article .sponsored-by img {
+	margin-left: 10px;
+	margin-top: -26px;
+	max-height: 40px;
+	width: auto;
+}
+/*  Article images/videos
+---------------------------------------------*/
+.article .video-container {
+	float: none;
+	clear: both;
+	width: 100%;
+	position: relative;
+	padding-bottom: 56.25%; /* Assumes 16:9 ratio */
+	padding-top: 25px;
+	height: 0;
+}
+.article .video-container iframe,
+.article .video-container object,
+.article .video-container embed {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+}
+.article-image-info {
+	padding: 5px 0;
+}
+.article-image-info p,
+.article-keywords > p{
+	margin-bottom: 0;
+}
+.article-image-caption {
+	float: left;
+	margin-right: 30px;
+}
+.article-image-copyright {
+	float: right;
+}
+/*  Related
+---------------------------------------------*/
+.related .inpage {
+	background: none !important;
+	color: inherit;
+	font-size: 18px;
+}
+.related > ul {
+	margin-bottom: 15px;
+}
+.story-list.related, 
+.article-keywords {
+    margin-top: 20px;
+}
+/*  Keywords
+---------------------------------------------*/
+.article-keywords {
+	padding: 5px 0 20px;
+}
+.article-tag {
+	display: inline-block;
+	margin-left: 10px;
+	margin-top: 15px;
+}
+.article-tag > a {
+	padding: 5px;
+}
+/*-----------------------------------------------------*/
+/*  Large
+-------------------------------------------------------*/
+@media (min-width: 1024px) {
+	.sponsored-by {
+		color: inherit;
+		margin-top: -29px;
+		right: 10px;
+	}
+}
+/*-------------------------------------------------------
+3.1.1   Journalist Header 
+/*-----------------------------------------------------*/
+/*  Default (small)
+-------------------------------------------------------*/
+.journalist-header {
+	margin: 20px 0 40px;
+	position: relative;
+}
+.journalist-picture,
+.journalist-info {
+	float: left;
+}
+.journalist-picture {
+	margin-right: 4.6%;
+	padding-bottom: 10px;
+	width: 22.5%;
+}
+.journalist-info {
+	width: 72.9%;
+}
+.journalist-info ul {
+	list-style: none;
+	padding: 0;
+	margin: 0;
+}
+.journalist-info li,
+.journalist-info li > a {
+	padding: 5px 0;
+}
+.journalist-info .journalist-name {
+	padding-top: 0;
+}
+.journalist-info .journalist-mail,
+.journalist-info .journalist-mail > a {
+	padding-top: 10px;
+}
+.journalist-info .journalist-twitter {
+	padding: 0 0 10px;
+}
+.publication-time {
+	bottom: -26px;
+	left: 0;
+	position: absolute;
+}
+/*-----------------------------------------------------*/
+/*  Large
+-------------------------------------------------------*/
+@media (min-width: 1024px) {
+	.journalist-picture {
+		margin-right: 3.6%;
+		width: 16.5%;
+	}
+	.journalist-info {
+		width: 79.9%;
+	}
+}
+/*-------------------------------------------------------
+3.1.2   Utilities
+/*-----------------------------------------------------*/
+/*  Default (small)
+-------------------------------------------------------*/
+.utilities > div {
+	float: left;
+	padding: 0 15px 10px 0;
+}
+.utilities {
+	padding-top: 10px;
+}
+.article-share .logo {
+	display: block;
+	height: 21px;
+	width: 21px;
+}
+.article-share span {
+	float: left;
+}
+.article-share .text {
+	border-left: 1px solid #FFF;
+	color: #FFF;
+	font-family: helvetica;
+	font-size: 13px;
+	font-weight: 300;
+	height: 21px;
+	padding: 2px 6px 0;
+}
+.article-share a:hover {
+	opacity: 0.8;
+}
+/*  Share Popover
+---------------------------------------------*/
+.article-share .popover-content span {
+	float: none;
+}
+.article-share .popover-content > div {
+	float: left;
+	padding: 10px;
+}
+.article-share .share .popover-content .text {
+	background: none;
+	color: inherit;
+}
+.article-share .popover-content .logo {
+	display: block;
+	height: 40px;
+    margin-bottom: 10px;
+	width: 40px;
+}
+.article-share .popover-content .text {
+	padding: 0;
+}
+.share .close {
+  margin: 0;
+  padding: 3px 5px 5px 0;
+}
+
+#share-trigger-top {
+    display: block;
+    height: 21px;
+}
+
+/*  Logos and colours popover
+---------------------------------------------*/
+/* The following rules only style Facebook, Twitter, Google Plus, Share, Email, and Comments. If any additional icons are adde, they will need to be styled in the site specific CSS. The same applies for the Share popover, no icons are styled to appear in the popover, these will need to be styled in the site specific CSS */
+.article-share .logo {
+	background-image: url("#file({'filename': 'img/base-sprite.png', 'contentId': $content.contentId, '':''})");
+}
+.article-share .facebook-share .logo {
+	background-position: 0 0;
+}
+.article-share .facebook-share .text {
+	background-color: #3A589A;
+}
+.twitter-share .logo {
+	background-position: -21px 0;
+}
+.article-share .twitter-share .text {
+	background-color: #00ABF0;
+}
+.article-share .google-share .logo {
+	background-position: -42px 0;
+}
+.article-share .google-share .text {
+	background-color: #DF4A32;
+}
+.article-share .share .logo {
+	background-position: -63px 0;
+}
+.article-share .share .text {
+	background-color: #999;
+}
+.pinterest-share .logo {
+	background-position: -84px 0;
+}
+.article-share .email-share .logo {
+	background-position: -105px 0;
+}
+.article-share .comments .logo {
+	background-position: -126px 0;
+}
+.article-share .comments .comments-vale {
+	padding-left: 10px;
+}
+.article-share .email-share .text, 
+.article-share .comments .text,
+.article-share .comments .comments-vale {
+	color: #333;
+	font-weight: 600;
+}
+.article-share.bottom .share > a > .text {
+  display: none;
+}
+/*-------------------------------------------------------
+3.2   Gallery
+/*-----------------------------------------------------*/
+/*  Default (small)
+
+.full-screen indicates that these rules are only applied when in full screen mode (the class is added using JS)
+.landscape indicates that these rules are only applied when viewed landscape on device with width less than 768px (the class is added using JS)
+-------------------------------------------------------*/
+.gallery {
+	margin-left: -10px;
+	margin-right: -10px;
+    margin-top: 20px;
+}
+.gallery-wrapper {
+	padding: 10px;
+}
+.gallery-wrapper.full-screen {
+	background-color: rgba(0, 0, 0, 0.5);
+	bottom: 0;
+	left: 0;
+	padding: 0.5%;
+	position: fixed;
+	top: 0;
+	width: 100%;
+	height: 100%;
+	z-index: 1040;
+}
+.full-screen .gallery-container {
+	background-color: #FFF;
+	border: none;
+	height: 100%;
+	margin: 0;
+	opacity: 1;
+	padding: 1.6%;
+	position: relative;
+	width: 100%;
+}
+.full-screen.no-border .gallery-container { /* If the no border option is selected */
+	margin: 0;
+	width: 100%;
+}
+.full-screen .gallery-header {
+	background: transparent;
+	border: none;
+	display: block;
+	left: 0;
+	position: absolute;
+	right: 0;
+	top: 0;
+	z-index: 2000;
+}
+.full-screen .gallery-header .btn {
+	float: right;
+	margin-right: 6%;
+	margin-top: 6%;
+}
+/*  Common Layout Rules
+---------------------------------------------*/
+.gallery-header, /* Not to be shown on mobile */
+.gallery-container .sponsored-by,
+.gallery-container .favourite-count,
+.gallery-container .article-keywords,
+.full-screen .gallery-container .favourite-count,
+.full-screen .gallery-container .article-keywords,
+.full-screen #full-Screen-Button,
+.full-screen .advert,
+.full-screen.landscape #carousel-text,
+.full-screen.landscape #slider-thumbs,
+.full-screen.landscape .description {
+	display: none;
+}
+.gallery .sponsored-by,
+.gallery .inline .article-share.top,
+.gallery #full-Screen-Button {
+	float: right;
+}
+.gallery-top h2,
+.gallery .description,
+.gallery .image-counter,
+.full-screen.landscape .article-share {
+	float: left;
+}
+article.gallery .picture-navigator,
+.full-screen.landscape #carousel-text {
+	clear: none;
+}
+/*  Gallery Top
+---------------------------------------------*/
+.gallery .sponsored-by {
+	margin: 0;
+	right: 0;
+}
+.gallery .sponsored-by img {
+	margin-top: 0;
+	width: auto;
+}
+.gallery .updated {
+	margin-bottom: 10px;
+}
+.close {
+	line-height: 0.8;
+	margin-left: 10px;
+}
+.full-screen .gallery-top h1 {
+	font-size: 20px;
+	font-weight: 400;
+}
+.full-screen .gallery-top h2 {
+	font-size: 18px;
+	font-weight: 400;
+}
+.full-screen .gallery-top h3 {
+	font-size: 14px;
+	font-weight: 400;
+}
+.full-screen .gallery-top h4 {
+	font-size: 10px;
+	font-weight: 400;
+}
+.full-screen .description {
+	font-weight: 300;
+	margin: 0;
+}
+.full-screen.landscape .gallery-top {
+	padding-bottom: 0;
+}
+/*  Gallery Middle
+---------------------------------------------*/
+.gallery .gallery-middle {
+	width: 100%;
+}
+.full-screen .gallery-middle {
+	display: inline-block;
+	position: static;
+}
+/*  Main Image
+-----------------------------------*/
+.gallery .picture-navigator {
+	margin-bottom: 0;
+}
+.gallery .item {
+	padding-bottom: 62.5%;
+	width: 100%;
+}
+.gallery .item > img {
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 100%;
+}
+.gallery .full-screen .picture-navigator {
+	margin-right: 0;
+	padding: 0 0 10px;
+}
+.gallery .full-screen #carousel-bounding-box {
+	margin-left: auto;
+	margin-right: auto;
+}
+/*  Share Utilities (article share)
+-----------------------------------*/
+.gallery .article-share {
+	height: 30px;
+	padding: 10px;
+	width: 100%;
+}
+.gallery .utilities {
+	padding-top: 0;
+}
+.gallery .utilities > div:first-child {
+	padding-left: 0;
+}
+.full-screen.landscape .article-share,
+.gallery .inline #carousel-text{
+	width: auto;
+}
+/*  Carousel Text
+-----------------------------------*/
+.gallery #carousel-text {
+	clear: right;
+	margin: 0;
+	min-height: 47px;
+	padding: 0 10px;
+}
+.gallery #carousel-text h2 {
+	clear: right;
+}
+.gallery .inline #carousel-text {
+	display: inline-block;
+}
+/*  Favourite Count
+-----------------------------------*/
+.favourite-count, 
+.favourite-count-inner {
+	padding: 5px 10px;
+}
+/*  Thumbnials
+-----------------------------------*/
+.gallery #slider-thumbs {
+	margin-left: -2.2%;
+	position: relative;
+}
+.gallery .viewport {
+	height: 0;
+	overflow-x: hidden;
+	overflow-y: hidden;
+	padding-bottom: 24%;
+	position: relative;
+	width: 100%;
+}
+#group-1 { /* Thumbnail group starting position, assumes a maximum of 5 (CSS can be ammended for more) */
+	left: 100%;
+}
+#group-2 {
+	left: 200%;
+}
+#group-3 {
+	left: 300%;
+}
+#group-4 {
+	left: 400%;
+}
+#group-5 {
+	left: 500%;
+}
+#group-6 {
+	left: 600%;
+}
+#group-7 {
+	left: 700%;
+}
+#group-8 {
+	left: 800%;
+}
+#group-9 {
+	left: 900%;
+}
+#group-10 {
+	left: 1000%;
+}
+#group-11 {
+	left: 1100%;
+}
+#group-12 {
+	left: 1200%;
+}
+#group-13 {
+	left: 1300%;
+}
+#group-14 {
+	left: 1400%;
+}
+#group-15 {
+	left: 1500%;
+}
+#group-16 {
+	left: 1600%;
+}
+#group-17 {
+	left: 1700%;
+}
+#group-18 {
+	left: 1800%;
+}
+#group-19 {
+	left: 1900%;
+}
+#group-20 {
+	left: 2000%;
+}
+.gallery .thumbnails li {
+	float: left;
+	margin-left: 2.2%;
+	width: 31.13%;
+}
+.gallery a.thumbnail:hover {
+	border-color: #FFF;
+}
+.gallery #slider-thumbs .thumbnails {
+	height: 100%;
+	margin-top: 10px;
+	position: absolute;
+	width: 100%;
+}
+.gallery .thumbnail {
+	border: none;
+	padding: 0;
+	position: relative;
+}
+.gallery .thumbnail.active .border {
+	border: 3px solid;
+	height: 100%;
+	left: 0;
+	position: absolute;
+	top: 0;
+	width: 100%;
+}
+.gallery .thumbnail.active img {
+	border-width: 0;
+}
+
+.gallery .full-screen #slider-thumbs {
+	margin-bottom: 0;
+}
+.full-screen #slider-thumbs > div {
+	margin-bottom: 5px;
+	padding-bottom: 5px;
+}
+.gallery .thumbnail span.text { /* Other Galleries thumbnail text */
+	bottom: 0;
+	font-size: 100%;
+	left: 0;
+	padding: 10%;
+	position: absolute;
+	right: 0;
+	text-align: center;
+	top: 0;
+}
+/*  Thumbnial Controls
+-----------------------------------*/
+.gallery .thumbnail-control {
+	color: #FFF;
+	left: 0;
+	opacity: 0.5;
+	position: absolute;
+	text-align: center;
+	text-shadow: 0 1px 2px rgba(0, 0, 0, 0.6);
+	top: 33.33%;
+}
+.gallery .thumbnail-control.left {
+	margin-left: 15px;
+}
+.gallery .thumbnail-control.right,
+.gallery .inline .thumbnail-control.right {
+	left: auto;
+	margin-right: 44px;
+	right: 0;
+}
+.gallery .thumbnail-control:hover,
+.thumbnail-control:focus {
+	color: #FFF;
+	opacity: 0.9;
+}
+/*------------  Gallery Count ------------*/
+.gallery .image-counter {
+	margin-top: 10px;
+	margin-left: 10px;
+}
+.gallery .image-counter > span {
+	font-size: 16px;
+}
+#full-Screen-Button {
+	background: none;
+	padding-left: 95px;
+	margin-right: 10px;
+}
+#full-Screen-Button > span {
+	left: 0;
+	position: absolute;
+}
+.gallery .full-screen .image-counter {
+	margin-top: 0;
+}
+.full-screen.landscape .gallery-count {
+	float: right;
+	padding: 10px;
+}
+.gallery .full-screen .image-counter > span {
+	font-size: 14px;
+}
+/*------------  MPU advert ------------*/
+.gallery .advert > span {
+	display: table;
+	margin-left: auto;
+	margin-right: auto;
+	padding-left: 10px;
+	padding-right: 10px;
+}
+.gallery .mpu {
+	display: block;
+	margin-left: auto;
+	margin-right: auto;
+	width: 300px;
+}
+.gallery .full-screen .advert {
+	bottom: 20px;
+	right: 20px;
+}
+.gallery .advert > .border > .advert {
+	margin-top: 0;
+	position: static;
+}
+/*-----------------------------------------------------*/
+/*  Content based queries
+-------------------------------------------------------*/
+@media (min-width: 615px) { /* To display 4 thumbnails */
+	.gallery .thumbnail span.text { /* Other Galleries thumbnail text */
+		font-size: 120%;
+	}
+	.full-screen .gallery-header .btn {
+		margin-right: 4.9%;
+		margin-top: 3.7%;
+	}
+	.gallery .full-screen .thumbnails li {
+		margin-left: 1.8%;
+		width: 23.2%;
+	}
+	.gallery .full-screen .viewport {
+		padding-bottom: 18%;
+	}
+	.full-screen .gallery-top h1 {
+		font-size: 24px;
+	}
+	.full-screen .gallery-top h2 {
+		font-size: 22px;
+	}
+	.full-screen .gallery-top h3 {
+		font-size: 18px;
+	}
+	.full-screen .gallery-top h4 {
+		font-size: 14px;
+	}
+	.full-screen .description {
+		font-weight: 400;
+	}
+	.gallery .full-screen .image-counter > span {
+		font-size: 16px;
+	}
+}
+/*-----------------------------------------------------*/
+/*  Content based queries
+-------------------------------------------------------*/
+@media (min-width: 820px) { /* To display 5 thumbnails */
+	.gallery .full-screen .thumbnails li {
+		margin-left: 1.4%;
+		width: 18.6%;
+	}
+	.gallery .full-screen .viewport {
+		padding-bottom: 14%;
+	}
+}
+@media (min-width: 840px) {
+	.gallery-container .favourite-count {
+		display: block;
+	}
+}
+@media (min-width: 860px) {
+	.gallery-container .article-keywords {
+		display: block;
+	}
+	.full-screen .gallery-container .article-keywords {
+		display: none;
+	}
+}
+@media (min-height: 730px) and (min-width: 1024px) {
+	.full-screen .gallery-container .article-keywords {
+		display: block;
+	}
+}
+/*-----------------------------------------------------*/
+/*  Large
+-------------------------------------------------------*/
+@media (min-width: 1024px) {
+	.gallery {
+		margin-left: 0;
+        margin-right: 0;
+	}
+	.gallery-wrapper {
+		padding: 20px;
+	}
+	.gallery .col-md-8 {
+		margin-right: -310px;
+		position: static;
+		width: 100%;
+	}
+	.gallery-top h2, /* left column */
+    .gallery-top .description,
+    .gallery #carousel-bounding-box,
+    .gallery #sliderGallery,
+    .gallery .gallery-count-inner,
+    .full-screen .gallery-top h2,
+    .full-screen .gallery-top .description,
+    .full-screen #sliderGallery{
+		margin-right: 320px;
+	}
+    .gallery-container .sponsored-by,
+	.full-screen .gallery-container .favourite-count,
+    .full-screen .advert {
+		display: block;
+	}
+    /*  Gallery Top
+    ---------------------------------------------*/
+	.gallery-container .sponsored-by {
+		position: relative;
+	}
+	.full-screen .gallery-top h2,
+    .full-screen .gallery-top .description,
+    .full-screen #sliderGallery {
+		margin-right: 0;
+	}
+	.full-screen .sponsored-by {
+		display: none;
+	}
+	.full-screen .description {
+		margin-bottom: 10px;
+	}
+    /*  Gallery Middle
+    ---------------------------------------------*/
+   /*  Main image
+    -----------------------------------*/
+	.gallery .full-screen .picture-navigator {
+		padding-right: 330px;
+		padding-top: 10px;
+		margin-right: -310px;
+	}
+    /*  Carousel Text
+    -----------------------------------*/
+	.gallery #carousel-text {
+		min-height: 63px;
+	}
+    /*  Thumbnails
+    -----------------------------------*/
+    .gallery #slider-thumbs {
+		margin-left: -.6%;
+		padding: 0 10px;
+	}
+    .gallery .full-screen #slider-thumbs {
+        margin-bottom: 0;
+        margin-right: -310px;
+        padding-right: 330px;
+    }
+    .gallery .thumbnails li,
+    .gallery .full-screen .thumbnails li {
+		margin-left: 1.8%;
+		width: 23.2%;
+	}
+	.gallery .viewport,
+    .gallery .full-screen .viewport {
+		padding-bottom: 18%;
+	}
+    /*  Thumbnail Controls
+    -----------------------------------*/
+	.gallery .thumbnail-control.right {
+		margin-right: 373px;  /* 373 = 320 + 53 */
+	}
+	.gallery .thumbnail-control.left {
+		margin-left: 22px;
+	}
+    /*  Gallery Count
+    -----------------------------------*/
+    .full-screen .gallery-count {
+		margin-top: 10px;
+	}
+    .gallery .favourite-count-inner {
+		display: inline;
+	}
+	.gallery .image-counter {
+		margin-top: 5px;
+	}
+    /*  MPU Adverts
+    -----------------------------------*/
+	.gallery .advert {
+		bottom: 0;
+		position: absolute;
+		right: 1.2%;
+	}
+}
+/*-----------------------------------------------------*/
+/*  Content based queries
+-------------------------------------------------------*/
+@media (min-width: 1140px) { /* To display 5 thumbnails */
+	.gallery .full-screen .thumbnails li {
+		margin-left: 1.4%;
+		width: 18.6%;
+	}
+	.gallery .full-screen .viewport {
+		padding-bottom: 14%;
+	}
+}
+/*-------------------------------------------------------
+3.3 Inline Gallery
+/*-----------------------------------------------------*/
+/*  Default (small)
+-------------------------------------------------------*/
+.inline .article-share.top,
+.inline .favourite-count,
+.gallery .inline .favourite-count-inner {
+	display: none;
+}
+/*-----------------------------------------------------*/
+/*  Large
+-------------------------------------------------------*/
+@media (min-width: 1024px) {
+	.inline #carousel-text {
+		float: left;
+	}
+    .gallery .inline .col-md-8,
+	.inline .gallery-top h2,
+    .inline .gallery-top .description,
+    .gallery .inline #sliderGallery,
+    .gallery .inline .gallery-count-inner {
+		margin-right: 0;
+	}
+	.gallery .inline #carousel-bounding-box {
+		margin-right: auto;
+	}
+	.gallery .full-screen.inline .picture-navigator {
+		margin-right: 0;
+		padding-right: 0;
+	}
+	.full-screen.inline .gallery-count {
+		position: static;
+	}
+    .gallery .inline.full-screen #slider-thumbs {
+        padding: 0 10px;
+        margin-right: 0;
+    }
+}
+/*-------------------------------------------------------
+3.4 Gallery final slide
+/*-----------------------------------------------------*/
+/* GLOBAL */
+#final-slide img {
+	max-width: 100%;
+	width: auto;
+}
+
+/*  Default (small)
+-------------------------------------------------------*/
+#final-slide .story-list {
+	position: absolute;
+	width: 100%;
+	margin-top: 10px;
+	margin-bottom: 0;
+}
+#final-slide .story-list > h4.inpage{
+    margin: 0 0 10px 0;
+    background: #FFF;
+    border-bottom: 1px solid #000;
+    display:none;
+}
+
+#final-slide-item-2, /* Only show 2 teasers, assumes a maximum of 6 (CSS can be ammended for more)*/
+#final-slide-item-3,
+#final-slide-item-4,
+#final-slide-item-5
+/*.full-screen #final-slide-item-1,
+.full-screen #final-slide .teaser-image*/ {
+	display: none;
+}
+@media (min-width: 380px) {
+    #final-slide-item-2{
+        display: block;
+    }
+}
+@media (min-width: 420px) {
+    #final-slide-item-3{
+        display: block;
+    }
+}
+@media (min-width: 480px) {
+    #final-slide-item-4{
+        display: block;
+    }
+}
+@media (min-width: 520px) {
+    #final-slide-item-5{
+        display: block;
+    }
+}
+#final-slide .story-list .teaser {
+	margin: 0 0 10px 0;
+	padding: 0;
+}
+#final-slide .story-list .teaser .teaser-image{
+    display: none;
+}
+@media (min-width: 600px) {
+    #final-slide .story-list #final-slide-item-0 .teaser-image,
+    #final-slide .story-list #final-slide-item-1 .teaser-image,
+    #final-slide .story-list #final-slide-item-2 .teaser-image{
+        display: block;
+        margin-bottom: 5px;
+    }
+    #final-slide .story-list .teaser .teaser-image{
+        height: 120px;
+        overflow: hidden;
+    }
+    #final-slide .story-list .teaser .teaser-image img{
+        width: 100%;
+    }
+    #final-slide .story-list #final-slide-item-0,
+    #final-slide .story-list #final-slide-item-1,
+    #final-slide .story-list #final-slide-item-2{
+        float: left;
+        margin-left: 1.7%;
+        width: 31.13%;
+    }
+    #final-slide .story-list #final-slide-item-0 .teaser-title,
+    #final-slide .story-list #final-slide-item-1 .teaser-title,
+    #final-slide .story-list #final-slide-item-2 .teaser-title{
+        margin: 0 12px;
+    }
+}
+@media (min-width: 700px) {
+    #final-slide .story-list #final-slide-item-3 .teaser-image,
+    #final-slide .story-list #final-slide-item-4 .teaser-image,
+    #final-slide .story-list #final-slide-item-5 .teaser-image{
+        display: block;
+        margin-bottom: 5px;
+    }
+    #final-slide .story-list #final-slide-item-3,
+    #final-slide .story-list #final-slide-item-4,
+    #final-slide .story-list #final-slide-item-5{
+        float: left;
+        margin-left: 1.7%;
+        width: 31.13%;
+    }
+}
+@media (min-width: 740px) {
+    #final-slide .story-list .teaser .teaser-image{
+        padding-bottom: 62.5%;
+    }
+}
+@media (min-width: 1024px) {
+    #final-slide .story-list .teaser .teaser-title h5{
+        font-size: 12px;
+    }
+    #final-slide .story-list .teaser .teaser-image{
+        height: 110px
+    }
+}
+#final-slide .story-list .teaser .teaser-title{
+    margin: 0 22px 0 22px;
+}
+
+/*-------------------------------------------------------
+3.5 Search Results Page
+/*-----------------------------------------------------*/
+/*  Default (small)
+-------------------------------------------------------*/
+/*  Search Form
+-----------------------------------*/
+div.site-search .form-control {
+	float: left;
+	width: 75%;
+}
+.search-results-container .site-search .btn {
+	background-color: #428BCA;
+	background-image: none;
+	border: none;
+	color: #FFF;
+	float: left;
+	height: 39px;
+	margin: 0;
+	margin-left: 5%;
+	padding-bottom: 10px 15px;
+	position: static;
+	width: 20%;
+}
+.no-results p,
+.pagination {
+	margin: 0;
+}
+.pagination > li > a {
+	border: none;
+	padding: 0 3px;
+}
+.search-results-scope,
+.search-sort-filter > p {
+	float: left;
+}
+.pagination-wrapper,
+.search-filters-outer-container > h3 {
+	float: right;
+}
+.search-sort-filter {
+	position: relative;
+}
+.search-sort-filter > p > a {
+	margin: 0 3px;
+}
+.search-filters-outer-container > h3 {
+	margin-top: 6px;
+}
+.search-sort-filter > p {
+	margin-top: 5px;
+}
+.search-filters-outer-container {
+	position: absolute;
+	right: 0;
+	top: 0;
+	z-index: 999;
+}
+.search-filters-outer-container > h3 {
+	color: #428BCA;
+	cursor: pointer;
+}
+.content-b .search-filters-outer-container h3 {
+	float: left;
+	margin-left: 20px;
+}
+.content-b .search-filters-inner-container {
+	padding-top: 0;
+}
+.search-filters-inner-container {
+	background-color: #FFF;
+	display: none;
+	float: right;
+	margin-top: 10px;
+	padding: 20px;
+	width: 90%;
+}
+/*  Search Filters
+-----------------------------------*/
+.search-filters-inner-container > h4 {
+	padding: 10px;
+	margin-bottom: 20px;
+	margin-top: 0;
+}
+.search-filters-inner-container ul,
+.search-results ul {
+	list-style: none;
+	padding: 0;
+}
+.absolute-date-filter input, 
+.absolute-date-filter button, 
+.absolute-date-filter p span {
+	float: left;
+	width: 31.3%;
+}
+.absolute-date-filter input, 
+.absolute-date-filter p span {
+	margin-right: 3%;
+}
+.absolute-date-filter > p {
+	margin-bottom: 25px;
+}
+.absolute-date-filter input {
+	padding-bottom: 6px 3px;
+}
+.absolute-date-filter .form-control {
+	border: 1px solid #000;
+	padding: 5px;
+}
+.absolute-date-filter .btn {
+	background-color: #4F89C1;
+	border: none;
+	color: #FFF;
+	height: 29px;
+	padding: 0;
+}
+/*  Search Results
+-----------------------------------*/
+.search-results {
+	clear: both;
+	margin-top: 20px;
+}
+.search-results ul li {
+	margin-bottom: 5px;
+}
+.search-results .teaser-title > h4 {
+	display: inline;
+	padding-right: 10px;
+}
+.search-results .small-teaser-item .teaser-post-extra {
+	width: 98.4%;
+}
+/*-----------------------------------------------------*/
+/*  Large
+-------------------------------------------------------*/
+@media (min-width: 1024px) {
+    /*  Search Form
+    -----------------------------------*/
+	.search-filters-inner-container {
+		display: block;
+		width: auto;
+	}
+	.search-filters-outer-container {
+		position: relative;
+		width: auto;
+	}
+	.search-filters-outer-container h3 {
+		cursor: auto;
+		font-size: 24px;
+	}
+	.absolute-date-filter input {
+		padding-bottom: 6px 8px;
+	}
+}
+/*-------------------------------------------------------
+3.6 Search Page
+/*-----------------------------------------------------*/
+/*  Default (small)
+-------------------------------------------------------*/
+.advanced-search h2 {
+	margin-top: 10px;
+}
+.advanced-search h3 {
+	float: left;
+	font-size: 18px;
+	margin: 0;
+	width: 26%;
+}
+.advanced-search h3 label {
+	font-weight: 400;
+}
+.advanced-search fieldset{
+	margin-bottom: 10px;
+}
+.advanced-search #frm-advanced-search-term{
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+.advanced-search button[name="advancedSearchNow"]{
+	float: right;
+	display: block;
+	width: auto;
+	height: 39px;
+	margin-bottom: 10px;
+}
+/*  Date Constraints
+-----------------------------------*/
+.advanced-search fieldset div h6{
+	margin-bottom: 5px;
+}
+.advanced-search fieldset div div ul{
+	padding: 0;
+	list-style: none;
+}
+.advanced-search fieldset div div ul li input[type="radio"]{
+	width: 5%;
+}
+.advanced-search fieldset div div ul li label{
+	width: 95%;
+}
+.advanced-search fieldset div div select#frm-select-category{
+	width: 100%;
+	margin-bottom: 10px;
+}
+
+.advanced-search fieldset div div ul li input#frm-published-after,
+.advanced-search fieldset div div ul li input#frm-published-before{
+	
+}
+.advanced-search fieldset div div ul li label[for="frm-published-after"]{}
+/*  Map and Submit 
+-----------------------------------*/
+.advanced-search .map-container {
+	margin-top: 10px;
+}
+.advanced-search .action {
+	float: right;
+}
+.advanced-search #map {
+	margin: 0 auto;
+	margin-bottom: 10px;
+}
+.advanced-search fieldset div button[name="advancedSearch"],
+.advanced-search fieldset div button[name="mapSubmit"]{
+	width: auto;
+}
+/*-----------------------------------------------------*/
+/*  Large
+-------------------------------------------------------*/
+@media (min-width: 1024px) {
+	
+}
+
+/*-------------------------------------------------------
+WEATHER PAGE
+-------------------------------------------------------*/
+#weather .weather-five{
+	float: left;
+	clear: left;
+	width: 100%;
+}
+
+#weather .weather-five > p{
+	float: left;
+	width: 30%;
+	height: 100px;
+}
+
+#weather .weather-five .weather-label{
+	float: left;
+	width: 40%;
+}
+
+#weather .weather-five .weather-data{
+	float: left;
+	width: 30%;
+}
+
+body.weather .content-a > h1, body.weather .content-a > h2{
+    margin-bottom: 10px;
+}
+
+/* ADVERT CSS */
+.advert{
+    background-image: url("#file({'filename': 'img/spin-loader.gif', 'contentId': $content.contentId, '':''})");
+    background-position: center;
+    background-repeat: no-repeat;
+}
+.mobile.mpu,
+.tablet.mpu,
+.desktop.mpu{
+    width:300px;
+    height:250px;
+}
+
+.mobile.leaderboard{
+    width: 320;
+    height: 50px;
+}
+.tablet.leaderboard, .desktop.leaderboard{
+    width: 720px;
+    height: 90px;
+}
+.desktop{display: none;}
+.tablet{display: none;}
+.mobile{display: block;}
+
+@media (min-width: 800px) {
+    .mobile{display: none;}
+    .tablet{display: block;}
+}
+@media (min-width: 1024px) {
+    .tablet{display: none;}
+    .desktop{display: block;}
+}
+
+.advert-autosize{
+    background-image: none !important;
+    height: auto !important;
+    width: auto !important;
+}
+
+.header .advert > div > div{
+    margin: 0 auto;
+}

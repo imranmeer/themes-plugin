@@ -1,0 +1,110 @@
+<batch xmlns="http://www.polopoly.com/polopoly/cm/xmlio">
+    <content clear="true">
+        <metadata>
+            <contentid>
+                <major>LayoutElement</major>
+                <externalid>demo.bootstrapTheme.e</externalid>
+            </contentid>
+            <input-template>
+                <major>InputTemplate</major>
+                <externalid>com.atex.plugins.themes.ThemeElement</externalid>
+            </input-template>
+            <security-parent>
+                <major>Department</major>
+                <externalid>p.siteengine.Configuration.d</externalid>
+            </security-parent>
+        </metadata>
+
+        <contentref group="polopoly.Content" name="inputTemplateId">
+            <contentid>
+                <major>InputTemplate</major>
+                <externalid>com.atex.plugins.themes.ThemeElement</externalid>
+            </contentid>
+        </contentref>
+
+        <component group="polopoly.Content" name="name">Bootstrap Base Theme</component>
+
+        <!-- Don't forget to increase this count if you add the file via XML -->
+        <component group="cssdir" name="count">3</component>
+
+        <component group="cssdir[0]/cssfile" name="fileName">bootstrap.css</component>
+        <component group="cssdir[0]/cssfile" name="path">root/css/cssdir[0]/cssfile</component>
+
+        <component group="cssdir[1]/cssfile" name="fileName">bootstrap-base.css</component>
+        <component group="cssdir[1]/cssfile" name="path">root/css/cssdir[1]/cssfile</component>
+
+        <component group="cssdir[2]/cssfile" name="fileName">bootstrap-theme.css</component>
+        <component group="cssdir[2]/cssfile" name="path">root/css/cssdir[2]/cssfile</component>
+
+
+        <file encoding="relative" name="root/css/cssdir[0]/cssfile/bootstrap.css">files/css/bootstrap.css</file>
+        <file encoding="relative" name="root/css/cssdir[1]/cssfile/bootstrap-base.css">files/css/bootstrap-base.css</file>
+        <file encoding="relative" name="root/css/cssdir[2]/cssfile/bootstrap-theme.css">files/css/bootstrap-theme.css</file>
+
+        <!-- Don't forget to increase this count if you add the file via XML -->
+        <component group="jsheaddir" name="count">4</component>
+        <component group="jsheaddir[0]/jsheadfile" name="fileName">respond.min.js</component>
+        <component group="jsheaddir[0]/jsheadfile" name="path">root/jshead/jsheaddir[0]/jsheadfile</component>
+        
+        <component group="jsheaddir[1]/jsheadfile" name="fileName">jquery1.10.2.js</component>
+        <component group="jsheaddir[1]/jsheadfile" name="path">root/jshead/jsheaddir[1]/jsheadfile</component>
+
+        <file encoding="relative" name="root/jshead/jsheaddir[0]/jsheadfile/respond.min.js">files/js/respond.min.js</file>
+        <file encoding="relative" name="root/jshead/jsheaddir[1]/jsheadfile/jquery1.10.2.js">files/js/jquery1.10.2.js</file>
+
+        <component group="jsheaddir[2]/jsheadfile" name="fileName">jquery-validation-1.11.1.js</component>
+        <component group="jsheaddir[2]/jsheadfile" name="path">root/jshead/jsheaddir[2]/jsheadfile</component>
+
+        <component group="jsheaddir[3]/jsheadfile" name="fileName">additional-methods-1.11.1.js</component>
+        <component group="jsheaddir[3]/jsheadfile" name="path">root/jshead/jsheaddir[3]/jsheadfile</component>
+
+        <file encoding="relative" name="root/jshead/jsheaddir[2]/jsheadfile/jquery-validation-1.11.1.js">files/js/jquery-validation-1.11.1.js</file>
+        <file encoding="relative" name="root/jshead/jsheaddir[3]/jsheadfile/additional-methods-1.11.1.js">files/js/additional-methods-1.11.1.js</file>
+
+        <!-- Don't forget to increase this count if you add the file via XML -->
+        <component group="jsfootdir" name="count">10</component>
+        <component group="jsfootdir[0]/jsfootfile" name="fileName">bootstrap.min.js</component>
+        <component group="jsfootdir[0]/jsfootfile" name="path">root/jsfoot/jsfootdir[0]/jsfootfile</component>
+        <component group="jsfootdir[1]/jsfootfile" name="fileName">pictureNavigatorCarousel.jQuery.js</component>
+        <component group="jsfootdir[1]/jsfootfile" name="path">root/jsfoot/jsfootdir[1]/jsfootfile</component>
+        <component group="jsfootdir[2]/jsfootfile" name="fileName">swipeCarousel.jQuery.js</component>
+        <component group="jsfootdir[2]/jsfootfile" name="path">root/jsfoot/jsfootdir[2]/jsfootfile</component>
+        <component group="jsfootdir[3]/jsfootfile" name="fileName">pictureStorylist.jQuery.js</component>
+        <component group="jsfootdir[3]/jsfootfile" name="path">root/jsfoot/jsfootdir[3]/jsfootfile</component>
+        <component group="jsfootdir[4]/jsfootfile" name="fileName">Navigation.js</component>
+        <component group="jsfootdir[4]/jsfootfile" name="path">root/jsfoot/jsfootdir[4]/jsfootfile</component>
+        <component group="jsfootdir[5]/jsfootfile" name="fileName">jquery.webticker.js</component>
+        <component group="jsfootdir[5]/jsfootfile" name="path">root/jsfoot/jsfootdir[5]/jsfootfile</component>
+        <component group="jsfootdir[6]/jsfootfile" name="fileName">search.js</component>
+        <component group="jsfootdir[6]/jsfootfile" name="path">root/jsfoot/jsfootdir[6]/jsfootfile</component>
+        <component group="jsfootdir[7]/jsfootfile" name="fileName">weather.js</component>
+        <component group="jsfootdir[7]/jsfootfile" name="path">root/jsfoot/jsfootdir[7]/jsfootfile</component>
+        <component group="jsfootdir[8]/jsfootfile" name="fileName">calendar.js</component>
+        <component group="jsfootdir[8]/jsfootfile" name="path">root/jsfoot/jsfootdir[8]/jsfootfile</component>
+        <component group="jsfootdir[9]/jsfootfile" name="fileName">personalisedDropdown.js</component>
+        <component group="jsfootdir[9]/jsfootfile" name="path">root/jsfoot/jsfootdir[9]/jsfootfile</component>
+
+
+        <file encoding="relative" name="root/jsfoot/jsfootdir[0]/jsfootfile/bootstrap.min.js">files/js/bootstrap.min.js</file>
+        <file encoding="relative" name="root/jsfoot/jsfootdir[1]/jsfootfile/pictureNavigatorCarousel.jQuery.js">files/js/pictureNavigatorCarousel.jQuery.js</file>
+        <file encoding="relative" name="root/jsfoot/jsfootdir[2]/jsfootfile/swipeCarousel.jQuery.js">files/js/swipeCarousel.jQuery.js</file>
+        <file encoding="relative" name="root/jsfoot/jsfootdir[3]/jsfootfile/pictureStorylist.jQuery.js">files/js/pictureStorylist.jQuery.js</file>
+        <file encoding="relative" name="root/jsfoot/jsfootdir[4]/jsfootfile/Navigation.js">files/js/Navigation.js</file>
+        <file encoding="relative" name="root/jsfoot/jsfootdir[5]/jsfootfile/jquery.webticker.js">files/js/jquery.webticker.js</file>
+        <file encoding="relative" name="root/jsfoot/jsfootdir[6]/jsfootfile/search.js">files/js/search.js</file>
+        <file encoding="relative" name="root/jsfoot/jsfootdir[7]/jsfootfile/weather.js">files/js/weather.js</file>
+        <file encoding="relative" name="root/jsfoot/jsfootdir[8]/jsfootfile/calendar.js">files/js/calendar.js</file>
+        <file encoding="relative" name="root/jsfoot/jsfootdir[9]/jsfootfile/personalisedDropdown.js">files/js/personalisedDropdown.js</file>
+
+        <!-- You can add resources here that are referenced in the CSS -->
+        <file encoding="relative" name="img/base-sprite.png">files/img/base-sprite.png</file>
+        <file encoding="relative" name="img/spin-loader.gif">files/img/spin-loader.gif</file>
+
+        <file encoding="relative" name="img/glyphicons-halflings-regular.eot">files/img/glyphicons-halflings-regular.eot</file>
+        <file encoding="relative" name="img/glyphicons-halflings-regular.svg">files/img/glyphicons-halflings-regular.svg</file>
+        <file encoding="relative" name="img/glyphicons-halflings-regular.ttf">files/img/glyphicons-halflings-regular.ttf</file>
+        <file encoding="relative" name="img/glyphicons-halflings-regular.woff">files/img/glyphicons-halflings-regular.woff</file>
+
+
+    </content>
+</batch>

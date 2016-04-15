@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template-definition version="1.0" xmlns="http://www.polopoly.com/polopoly/cm/app/xml">
+
+  <input-template name="com.atex.plugins.themes.ThemeElement.Base">
+    <policy>com.atex.plugins.themes.ElementPolicy</policy>
+    <editor>com.atex.plugins.themes.widget.OJSDependencyTopPolicyWidget</editor>
+    <viewer>com.atex.plugins.themes.widget.OJSDependencyTopPolicyWidget</viewer>
+    <param name="jsFilePath">js/themeElementBase.js</param>
+    <layout name="baseGroup" input-template="p.Group" label="Base theme element">
+      <field name="baseCreator" input-template="com.atex.plugins.themes.SimpleContentCreator">
+        <param name="major">7</param>
+        <idparam name="inputTemplateId">
+          <externalid>com.atex.plugins.themes.ThemeElement</externalid>
+        </idparam>
+        <param name="securityParentAlias">content</param>
+        <param name="insertTargetAlias">content</param>
+        <param name="insertParentAlias">content</param>
+        <param name="autoInsertContentListRelativeName">baseElement</param>
+        <param name="editInContext">true</param>
+        <param name="askContentListPosition">false</param>
+        <param name="askInsertionContentListName">false</param>
+        <param name="askInsertTarget">false</param>
+        <param name="createLabel">Create a base theme element
+        </param>
+        <param name="EditNewState_saveAndView">false</param>
+        <param name="EditNewState_saveAndClose">false</param>
+        <param name="EditNewState_saveAndInsert">false</param>
+        <param name="EditNewState_saveAndFastInsert">true</param>
+      </field>
+      <field name="baseElement" input-template="com.atex.plugins.themes.ContentSingleSelect">
+        <param name="allowArticles">true</param>
+        <param name="allowDepartments">false</param>
+        <param name="showTreeSelect">false</param>
+        <idparam-list name="requiredInputTemplateIds">
+          <contentid>
+            <externalid>com.atex.plugins.themes.ThemeElement</externalid>
+          </contentid>
+        </idparam-list>
+      </field>
+    </layout>
+  </input-template>
+  
+  <input-template name="com.atex.plugins.themes.ThemeElement" label="Theme element">
+    <policy>com.atex.plugins.themes.ThemeElementPolicy</policy>
+    <editor>com.polopoly.cm.app.widget.OTopPolicyWidget</editor>
+    <viewer>com.polopoly.cm.app.widget.OTopPolicyWidget</viewer>
+    <type>LayoutElement</type>
+    <editor contextName="orchid_TOCENTRY">com.atex.plugins.themes.widget.OContentListEntryBasePolicyWidget</editor>
+    <viewer contextName="orchid_TOCENTRY">com.atex.plugins.themes.widget.OContentListEntryBasePolicyWidget</viewer>
+    <param name="ViewState_insert">false</param>
+    <param name="ViewState_refresh">true</param>
+    <param name="EditState_saveAndClose">true</param>
+    <param name="EditState_saveAndInsert">false</param>
+    <param name="EditState_saveAndFastInsert">false</param>
+    <param name="EditState_saveAndView">true</param>
+    <param name="EditState_saveAndEdit">true</param>
+    <param name="EditNewState_saveAndClose">true</param>
+    <param name="EditNewState_saveAndInsert">true</param>
+    <param name="EditNewState_saveAndFastInsert">false</param>
+    <param name="EditNewState_saveAndView">false</param>
+    <param name="PrepareInsertionState_abortAndClose">false</param>
+    <param name="PrepareInsertionState_abortAndView">true</param>
+    <param name="titleOfNewContent">new Theme Element</param>
+    <param name="ViewState_copy">true</param>
+    <param name="cloneSecurityParent">currentOrHome</param>
+    
+    <field name="name" input-template="p.ContentName" label="Name" />
+    <layout name="root" input-template="p.PageMenu">
+      <layout name="css" input-template="p.Page" label="CSS">
+        <layout name="cssfilesPageComment" input-template="p.Comment" label="CSS">
+          <param name="comment">
+            <![CDATA[
+          To refer to an uploaded file from velocity, use e.g. <pre>&lt;img src="#file({'filename': 'logo.png', 'contentId': $content.contentId, '':''})" alt=""/&gt;</pre>
+          to render the uploaded image file logo.png.
+          If you upload a ZIP file, then the ZIP will be unzipped.
+          ]]>
+          </param>
+        </layout>
+        <field name="cssdir" input-template="p.Duplicator" label="Files">
+            <param name="startingCount">3</param>
+            <param name="maxCount">20</param>
+            <param name="minCount">0</param>
+            <param name="hasAddButton">true</param>
+            <param name="hasCloneButton">true</param>
+            <param name="hasSetCount">true</param>
+            <param name="hideable">false</param>
+            <param name="visible">true</param>
+
+            <field name="cssfile" input-template="p.SimpleFileUpload" label="CSS File">
+                <param name="useTree">true</param>
+                <param name="requireUploadButtonClick">false</param>
+                <param name="suffixes">css</param>
+            </field>
+        </field>
+      </layout>
+      <layout name="jshead" input-template="p.Page" label="Initial JS">
+            <layout name="jsheadfilesPageComment" input-template="p.Comment" label="Initial JS">
+                <param name="comment">
+                    <![CDATA[
+This will contain the list of Java Script Files which will be loaded in the page header and is essential for correct page loading.
+          ]]>
+                </param>
+            </layout>
+            <field name="jsheaddir" input-template="p.Duplicator" label="Files">
+                <param name="startingCount">2</param>
+                <param name="maxCount">99</param>
+                <param name="minCount">0</param>
+                <param name="hasAddButton">true</param>
+                <param name="hasCloneButton">true</param>
+                <param name="hasSetCount">true</param>
+                <param name="hideable">false</param>
+                <param name="visible">true</param>
+
+                <field name="jsheadfile" input-template="p.SimpleFileUpload" label="Javascript File">
+                    <param name="useTree">true</param>
+                    <param name="requireUploadButtonClick">false</param>
+                    <param name="suffixes">js</param>
+                </field>
+            </field>
+      </layout>
+      <layout name="jsfoot" input-template="p.Page" label="Footer JS">
+            <layout name="jsfootfilesPageComment" input-template="p.Comment" label="Footer JS">
+                <param name="comment">
+                    <![CDATA[
+This will contain the list of Java Script Files which will be loaded in the page footer to improve page load performance.
+          ]]>
+                </param>
+            </layout>
+            <field name="jsfootdir" input-template="p.Duplicator" label="Files">
+                <param name="startingCount">2</param>
+                <param name="maxCount">99</param>
+                <param name="minCount">0</param>
+                <param name="hasAddButton">true</param>
+                <param name="hasCloneButton">true</param>
+                <param name="hasSetCount">true</param>
+                <param name="hideable">false</param>
+                <param name="visible">true</param>
+
+                <field name="jsfootfile" input-template="p.SimpleFileUpload" label="Javascript File">
+                    <param name="useTree">true</param>
+                    <param name="requireUploadButtonClick">false</param>
+                    <param name="suffixes">js</param>
+                </field>
+            </field>
+        </layout>
+      <layout name="basePage" input-template="p.Page" label="Base">
+        <field name="isBase" input-template="p.Checkbox" label="Is base theme">
+          <param name="checked">false</param>
+        </field>
+        <field name="base" input-template="com.atex.plugins.themes.ThemeElement.Base" />
+      </layout>
+      <layout name="settings" input-template="p.Page" label="cm.general.Advanced">
+          <param name="lazyInit">true</param>
+          <field name="filemanager" input-template="p.FileManager" label="Manage your files">
+              <param name="useTree">true</param>
+              <param name="showFiles">true</param>
+              <param name="showDirectories">true</param>
+              <param name="showCreateDirectory">true</param>
+              <param name="showDeleteDirectory">true</param>
+              <param name="showDeleteFile">true</param>
+              <param name="showFileList">true</param>
+              <param name="showFileUpload">true</param>
+              <param name="requireUploadButtonClick">false</param>
+              <param name="fileListSize">7</param>
+          </field>
+        <field name="securityparent" input-template="p.SecurityParentSelect" label="cm.general.HomePage">
+          <help>This is the contents Security Parent.</help>
+          <param name="inlineHelp">true</param>
+          <idparam name="rootContent">
+            <externalid>p.SecurityRootDepartment</externalid>
+          </idparam>
+          <param name="width">314</param>
+          <param name="height">120</param>
+        </field>
+        <field name="id" input-template="p.ExternalId" label="cm.general.ExternalId">
+          <param name="maxlength">100</param>
+        </field>
+        <field name="deepcopyxmlarea" input-template="p.DeepCopyXML"/>
+      </layout>
+    </layout>
+    <output-templates mode="www">
+      <id>com.atex.plugins.themes.ThemeElement.ot</id>
+    </output-templates>
+      <output-templates mode="mobile">
+          <id>com.atex.plugins.themes.ThemeElement.ot</id>
+      </output-templates>
+  </input-template>
+</template-definition>

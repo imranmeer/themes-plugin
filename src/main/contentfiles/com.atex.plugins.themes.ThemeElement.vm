@@ -1,0 +1,9 @@
+#set($filetype=$m.request.httpRequest.attributes.filetype)
+
+#foreach($file in $files)
+    #if ($filetype=="css")
+		<link rel="stylesheet" type="text/css" href="#file({'filename': $file.path, 'contentId': $content.contentId, '':''})">
+    #elseif ($filetype=="jshead" || $filetype=="jsfoot")
+		<script type="text/javascript" src="#file({'filename': $file.path, 'contentId': $content.contentId, '':''})"></script>
+    #end
+#end
