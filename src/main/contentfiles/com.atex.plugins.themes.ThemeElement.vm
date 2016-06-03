@@ -2,8 +2,10 @@
 
 #foreach($file in $files)
     #if ($filetype=="css")
-		<link rel="stylesheet" type="text/css" href="#file({'filename': $file.path, 'contentId': $content.contentId, '':''})">
-    #elseif ($filetype=="jshead" || $filetype=="jsfoot")
-		<script type="text/javascript" src="#file({'filename': $file.path, 'contentId': $content.contentId, '':''})"></script>
+		<link rel="stylesheet" type="text/css" href="/theme/$theme/css">
+    #elseif($filetype=="jshead")
+        <script type="text/javascript" src="/theme/$theme/jshead"></script>
+    #elseif($filetype=="jsfoot")
+        <script type="text/javascript" src="/theme/$theme/jsfoot"></script>
     #end
 #end

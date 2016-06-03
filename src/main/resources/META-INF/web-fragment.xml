@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-fragment xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+              xmlns="http://java.sun.com/xml/ns/javaee"
+              xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-fragment_3_1.xsd"
+              id="WebAppFragment_ID"
+              version="3.1">
+
+    <name>theme-plugin-fragment</name>
+
+    <context-param>
+        <param-name>cmservlet_ignore.theme-plugin</param-name>
+        <param-value>theme/*</param-value>
+    </context-param>
+
+    <servlet>
+        <servlet-name>theme</servlet-name>
+        <servlet-class>com.atex.plugins.themes.ThemeServlet</servlet-class>
+        <init-param>
+            <param-name>cache-time</param-name>
+            <param-value>604800</param-value>
+        </init-param>
+    </servlet>
+
+    <servlet-mapping>
+        <servlet-name>theme</servlet-name>
+        <url-pattern>/theme/*</url-pattern>
+    </servlet-mapping>
+
+</web-fragment>

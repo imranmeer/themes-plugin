@@ -140,6 +140,7 @@ public class ThemeServlet extends HttpServlet {
 
     			ByteArrayOutputStream fileout = new ByteArrayOutputStream();
     			theme.exportFile(f.getPath(), fileout);
+                String data = fileout.toString(defaultEncoding).replaceAll("url\\s*\\(\"?\\/?(?:[^\\/]+\\/)*?([^\\/]+?\\.[a-z]+).*?\\)", "url('#file({'filename': 'file/$1', 'contentId': \\$content.contentId, '':''})')");
 
                 if (debugMode) {
                     if (f.isJavaScript()) {
@@ -147,19 +148,22 @@ public class ThemeServlet extends HttpServlet {
                         out.write(fileout.toString(defaultEncoding));
                     } else {
                         LOG.info ("Serving debug velocity CSS file " + f);
-                        translateVelocity(out, fileout.toString(defaultEncoding), theme, basetheme, request, response);
+                        translateVelocity(out, data, theme, basetheme, request, response);
                     }
                 } else {
                     if (f.isCss()) {
-                        /* Levae this in for reference, but the currently implementaion of the CSS compressor has bugs
+                        /* Leave this in for reference, but the currently implementation of the CSS compressor has bugs
                         StringWriter buf = new StringWriter();
-                        translateVelocity(buf, fileout.toString(defaultEncoding), theme, basetheme, request, response);
+                        translateVelocity(buf, data, theme, basetheme, request, response);
                         fileout.close();
                         out.write (getCompressedCss(buf.getBuffer()));
                         */
-                        translateVelocity(out, fileout.toString(defaultEncoding), theme, basetheme, request, response);
-                    } else if (f.isJavaScript()) {
+                        translateVelocity(out, data, theme, basetheme, request, response);
+                    } else if (f.isJavaScript()) {                        
+						/* Leave this in for reference, but the currently implementation of the JS compressor has bugs                       
                         out.write(getCompressedJavaScript(new ByteArrayInputStream(fileout.toByteArray())));
+						*/
+						out.write(fileout.toString(defaultEncoding));
                     }
                 }
     			out.println();
