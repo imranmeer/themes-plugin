@@ -92,5 +92,8 @@ Add a theme .content for to your project, add put the files needed as relative t
     file:file/transparent-bg-1x1.png:assets/img/structure/transparent-bg-1x1.png
     
     ### END THEME ###
-			
+
+The plugin also has a configuration panel which can be located in ... > SiteEngine > Configuration > Plugins > Themes Plugin.
+
+
 			
