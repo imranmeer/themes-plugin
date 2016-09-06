@@ -10,6 +10,7 @@ package com.atex.plugins.themes;
 import com.polopoly.application.servlet.ApplicationServletUtil;
 import com.polopoly.cm.ContentId;
 import com.polopoly.cm.ContentIdFactory;
+import com.polopoly.cm.ExternalContentId;
 import com.polopoly.cm.client.CMException;
 import com.polopoly.cm.client.CmClient;
 import com.polopoly.cm.client.CmClientBase;
@@ -60,6 +61,9 @@ public class ThemeServlet extends HttpServlet {
     private int cacheTime = 60 * 60 * 24 * 365;
 
     ServletToolboxManager toolboxManager;
+
+    public static final String CONFIG_EXTERNALID = "plugins.com.atex.gong.plugins.themes-plugin.Config";
+    final ExternalContentId configId = new ExternalContentId(CONFIG_EXTERNALID);
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
@@ -236,35 +240,13 @@ public class ThemeServlet extends HttpServlet {
                 CmClientBase.DEFAULT_COMPOUND_NAME));
         cmServer = cmClient.getPolicyCMServer();
 
-        String lineBreak = config.getInitParameter("line-break");
-        if (lineBreak != null) {
-            lineBreakCol = Integer.parseInt(lineBreak);
-        }
-
-        String warnString = config.getInitParameter("warn");
-        if (warnString != null) {
-            warn = Boolean.parseBoolean(warnString);
-        }
-
-        String noMungeString = config.getInitParameter("nomunge");
-        if (noMungeString != null) {
-            munge = Boolean.parseBoolean(noMungeString) ? false : true; //swap values because it's nomunge
-        }
-
-        String debugModeString = config.getInitParameter("debugMode");
-        if (debugModeString != null) {
-            debugMode = Boolean.parseBoolean(debugModeString);
-        }
-
-        String cacheTimeString = config.getInitParameter("cache-time");
-        if (cacheTimeString != null) {
-            cacheTime = Integer.parseInt(cacheTimeString);
-        }
-
-        String preserveAllSemiColonsString = config.getInitParameter("preserve-semi");
-        if (preserveAllSemiColonsString != null) {
-            preserveAllSemiColons = Boolean.parseBoolean(preserveAllSemiColonsString);
-        }
+        ThemesConfiguration themesConfiguration = getThemesConfiguration(cmClient.getPolicyCMServer());
+        lineBreakCol = themesConfiguration.getLineBreakSettings();
+        warn = themesConfiguration.getWarningSettings();
+        munge = themesConfiguration.getNomungeSettings();
+        debugMode = themesConfiguration.getDebugModeSettings();
+        cacheTime = themesConfiguration.getCacheTimeSettings();
+        preserveAllSemiColons = themesConfiguration.getPreserveSemiSettings();
 
         toolboxManager = ServletToolboxManager.getInstance(getServletContext(), "/WEB-INF/toolbox.xml");
 
@@ -295,5 +277,15 @@ public class ThemeServlet extends HttpServlet {
             error(message, sourceName, line, lineSource, lineOffset);
             return new EvaluatorException(message);
         }
+    }
+
+    ThemesConfiguration getThemesConfiguration(final PolicyCMServer cmServer) {
+        try {
+            final ThemesConfigurationPolicy policy = (ThemesConfigurationPolicy) cmServer.getPolicy(configId);
+            return policy;
+        } catch (CMException e) {
+            LOG.log(Level.SEVERE, "Cannot load configuration from " + CONFIG_EXTERNALID + ": " + e.getMessage(), e);
+        }
+        return null;
     }
 }

@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template-definition version="1.0" xmlns="http://www.polopoly.com/polopoly/cm/app/xml">
+	<input-template name="com.atex.plugins.themes.Config.it" label="Themes Configuration">
+		<policy>com.atex.plugins.themes.ThemesConfigurationPolicy</policy>
+		<editor>com.polopoly.plugin.OPluginConfigContextPolicyWidget</editor>
+		<viewer>com.polopoly.plugin.OPluginConfigContextPolicyWidget</viewer>
+
+		<type>AppConfig</type>
+		<param name="EditState_saveAndInsert">false</param>
+		<param name="EditState_saveAndView">true</param>
+		<param name="EditState_saveAndClose">true</param>
+		<param name="ViewState_insert">false</param>
+
+        <field name="name" input-template="p.ContentName" />
+
+		<field name="line-break" input-template="p.TextInput" label="Line break column" />
+		<field name="warn" input-template="p.RadioButtonGroup" label="WARNING">
+			<param name="label_0">YES</param>
+			<param name="value_0">yes</param>
+			<param name="label_1">NO</param>
+			<param name="value_1">no</param>
+		</field>
+		<field name="nomunge" input-template="p.RadioButtonGroup" label="Minify only, do not obfuscate">
+			<param name="label_0">YES</param>
+			<param name="value_0">yes</param>
+			<param name="label_1">NO</param>
+			<param name="value_1">no</param>
+		</field>
+		<field name="debugMode" input-template="p.RadioButtonGroup" label="Debug Mode">
+			<param name="label_0">YES</param>
+			<param name="value_0">yes</param>
+			<param name="label_1">NO</param>
+			<param name="value_1">no</param>
+		</field>
+		<field name="cache-time" input-template="p.TextInput" label="Cache Time">
+			<help>Default cache time for 1 year = (60 * 60 * 24 * 365) = 31536000</help>
+		</field>
+		<field name="preserve-semi" input-template="p.RadioButtonGroup" label="Preserve all semicolons">
+			<param name="label_0">YES</param>
+			<param name="value_0">yes</param>
+			<param name="label_1">NO</param>
+			<param name="value_1">no</param>
+		</field>
+		
+    </input-template>
+</template-definition>
