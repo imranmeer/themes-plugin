@@ -5,9 +5,9 @@
 
   ## Render plugin contributed css
 	#foreach ($webResource in $m.local.webResources.filter("type=css", "scope=external"))
-  <link rel="stylesheet" type="text/css" href="$webResource.identifier" />
+    <link rel="stylesheet" type="text/css" href="$webResource.identifier" />
 	#end
-	#if(!$m.global.useConcatenation)
+	#if(!$m.local.useConcatenation)
 		#foreach ($webResource in $m.local.webResources.filter("type=css", "scope=internal"))
     <link rel="stylesheet" type="text/css" href="#file({'contentId': $webResource.contentId, 'filename':$webResource.identifier})" />
 		#end
@@ -18,7 +18,7 @@
 	<script type="text/javascript" src="/theme/$theme/jshead"></script>
 
   ## Render plugin contributed js
-	#foreach ($webResource in $m.global.webResources.filter("type=javascript", "location=header", "scope=external"))
+	#foreach ($webResource in $m.local.webResources.filter("type=javascript", "location=header", "scope=external"))
   <script type="text/javascript" src="$webResource.identifier"></script>
 	#end
 	#if(!$m.local.useConcatenation)
@@ -39,7 +39,7 @@
 	#foreach ($webResource in $m.local.webResources.filter("type=javascript", "location=footer", "scope=external"))
   <script type="text/javascript" src="$webResource.identifier"></script>
 	#end
-	#if(!$m.global.useConcatenation)
+	#if(!$m.local.useConcatenation)
 		#foreach ($webResource in $m.local.webResources.filter("type=javascript", "location=footer", "scope=internal"))
     <script type="text/javascript" src="#file({'contentId': $webResource.contentId, 'filename':$webResource.identifier})"></script>
 		#end
