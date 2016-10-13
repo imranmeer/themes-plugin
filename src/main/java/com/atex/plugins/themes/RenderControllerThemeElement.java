@@ -13,6 +13,11 @@ import com.polopoly.siteengine.dispatcher.ControllerContext;
 import com.polopoly.siteengine.model.TopModel;
 import com.polopoly.siteengine.mvc.RenderControllerBase;
 
+import com.polopoly.cm.ExternalContentId;
+import com.polopoly.cm.client.CMException;
+import com.polopoly.plugin.PluginManagerPolicy;
+import com.polopoly.plugin.PluginWebResources;
+
 /**
  * Element code controller. Populates a model with custom code.
  * 
@@ -20,14 +25,29 @@ import com.polopoly.siteengine.mvc.RenderControllerBase;
 public class RenderControllerThemeElement extends RenderControllerBase {
 
 	private static Logger LOG = Logger.getLogger(RenderControllerThemeElement.class.getName());
+	private static final ExternalContentId PLUGINS_CONTENT_ID = new ExternalContentId("p.siteengine.Plugins.d");
 
 	@Override
 	public void populateModelAfterCacheKey(RenderRequest request, TopModel m, CacheInfo cacheInfo, ControllerContext context) {
+		PolicyCMServer cmServer = getCmClient(context).getPolicyCMServer();
+
+		if(m.getLocal().getAttribute("webResources") == null) {
+
+			try {
+				PluginManagerPolicy e = this.getPluginManager(cmServer);
+				PluginWebResources webResources = e.getWebResources();
+				LOG.log(Level.FINE, "Setting webresources in GLOBAL scope");
+				m.getLocal().setAttribute("useConcatenation", Boolean.valueOf(e.isConcatenateResources()));
+				m.getLocal().setAttribute("webResources", webResources);
+			} catch (CMException var9) {
+				LOG.log(Level.WARNING, "Error adding web resources", var9);
+			}
+		}
+
 		try {
 			String filetype = (String) request.getAttribute("filetype");
 
 			if (filetype != null) {
-				PolicyCMServer cmServer = getCmClient(context).getPolicyCMServer();
 
 				ThemeElementPolicy p = (ThemeElementPolicy) cmServer.getPolicy(context.getContentId());
 
@@ -48,13 +68,16 @@ public class RenderControllerThemeElement extends RenderControllerBase {
 
 				m.getLocal().setAttribute("theme", p.getContentId().getContentIdString());
 				m.getLocal().setAttribute("files", allfiles);
-
 			}
 
 		} catch (Exception e) {
 			LOG.log(Level.WARNING, e.getLocalizedMessage(), e);
 		}
 
+	}
+
+	private PluginManagerPolicy getPluginManager(PolicyCMServer cmServer) throws CMException {
+		return (PluginManagerPolicy)cmServer.getPolicy(PLUGINS_CONTENT_ID);
 	}
 
 }
