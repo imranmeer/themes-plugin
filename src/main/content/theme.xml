@@ -149,6 +149,11 @@ This will contain the list of Java Script Files which will be loaded in the page
         </field>
         <field name="base" input-template="com.atex.plugins.themes.ThemeElement.Base" />
       </layout>
+        <layout name="excludePage" input-template="p.Page" label="Exclusion">
+            <field name="excludePattern" input-template="p.TextInput" label="Exclude pattern">
+                <help>For multiple pattern exclusion, please separate the pattern with ';'</help>
+            </field>
+        </layout>
       <layout name="settings" input-template="p.Page" label="cm.general.Advanced">
           <param name="lazyInit">true</param>
           <field name="filemanager" input-template="p.FileManager" label="Manage your files">

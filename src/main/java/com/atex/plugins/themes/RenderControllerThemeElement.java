@@ -1,9 +1,14 @@
 package com.atex.plugins.themes;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
+import java.util.StringTokenizer;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
+import com.polopoly.model.ModelPathUtil;
+import com.polopoly.plugin.PluginWebResource;
 import org.apache.commons.collections.CollectionUtils;
 
 import com.polopoly.cm.policy.PolicyCMServer;
@@ -31,11 +36,36 @@ public class RenderControllerThemeElement extends RenderControllerBase {
 	public void populateModelAfterCacheKey(RenderRequest request, TopModel m, CacheInfo cacheInfo, ControllerContext context) {
 		PolicyCMServer cmServer = getCmClient(context).getPolicyCMServer();
 
+		/*
+		To add plugins web resources with exclusion of resources name
+		that matched exclusion pattern defined by user in GUI
+		*/
 		if(m.getLocal().getAttribute("webResources") == null) {
 
 			try {
 				PluginManagerPolicy e = this.getPluginManager(cmServer);
 				PluginWebResources webResources = e.getWebResources();
+
+				Collection<PluginWebResource> filteredCollection = webResources.getAll();
+
+				String exclusion = (String)ModelPathUtil.get(context.getContentModel(), "excludePattern/value");
+				if(exclusion!="" && exclusion!=null){
+					StringTokenizer exclusionTokens = new StringTokenizer(exclusion,";");
+					while (exclusionTokens.hasMoreTokens()) {
+						String token = exclusionTokens.nextToken();
+
+						Iterator<PluginWebResource> iterator = filteredCollection.iterator();
+						while (iterator.hasNext()) {
+							PluginWebResource webResource = iterator.next();
+							String resourceIdentifier = webResource.getIdentifier();
+
+							if (resourceIdentifier.contains(token)) {
+								iterator.remove();
+							}
+						}
+					}
+				}
+
 				LOG.log(Level.FINE, "Setting webresources in GLOBAL scope");
 				m.getLocal().setAttribute("useConcatenation", Boolean.valueOf(e.isConcatenateResources()));
 				m.getLocal().setAttribute("webResources", webResources);
