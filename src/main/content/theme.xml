@@ -65,6 +65,15 @@
     <param name="cloneSecurityParent">currentOrHome</param>
     
     <field name="name" input-template="p.ContentName" label="Name" />
+
+      <field name="themeLocation" input-template="p.RadioButtonGroup" label="Select theme location">
+          <param name="label_0">Before plugins resources</param>
+          <param name="value_0">before</param>
+          <param name="label_1">After plugins resources</param>
+          <param name="value_1">after</param>
+          <param name="selected">0</param>
+      </field>
+
     <layout name="root" input-template="p.PageMenu">
       <layout name="css" input-template="p.Page" label="CSS">
         <layout name="cssfilesPageComment" input-template="p.Comment" label="CSS">

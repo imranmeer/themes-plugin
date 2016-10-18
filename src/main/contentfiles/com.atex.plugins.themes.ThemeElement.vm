@@ -1,54 +1,106 @@
 #set($filetype=$m.request.httpRequest.attributes.filetype)
 
 #if ($filetype=="css")
-	<link rel="stylesheet" type="text/css" href="/theme/$theme/css">
-
-  ## Render plugin contributed css
-	#foreach ($webResource in $m.local.webResources.filter("type=css", "scope=external"))
+	#if($content.themeLocation.value == "before")
+  <link rel="stylesheet" type="text/css" href="/theme/$theme/css">
+	  ## Render plugin contributed css
+		#foreach ($webResource in $m.local.webResources.filter("type=css", "scope=external"))
     <link rel="stylesheet" type="text/css" href="$webResource.identifier" />
-	#end
-	#if(!$m.local.useConcatenation)
-		#foreach ($webResource in $m.local.webResources.filter("type=css", "scope=internal"))
-    <link rel="stylesheet" type="text/css" href="#file({'contentId': $webResource.contentId, 'filename':$webResource.identifier})" />
+		#end
+		#if(!$m.local.useConcatenation)
+			#foreach ($webResource in $m.local.webResources.filter("type=css", "scope=internal"))
+      <link rel="stylesheet" type="text/css" href="#file({'contentId': $webResource.contentId, 'filename':$webResource.identifier})" />
+			#end
+		#else
+    <link rel="stylesheet" type="text/css" href="/cssresources/$!{m.local.webResources.identifier}.css" />
 		#end
 	#else
-  <link rel="stylesheet" type="text/css" href="/cssresources/$!{m.local.webResources.identifier}.css" />
+	  ## Render plugin contributed css
+		#foreach ($webResource in $m.local.webResources.filter("type=css", "scope=external"))
+    <link rel="stylesheet" type="text/css" href="$webResource.identifier" />
+		#end
+		#if(!$m.local.useConcatenation)
+			#foreach ($webResource in $m.local.webResources.filter("type=css", "scope=internal"))
+      <link rel="stylesheet" type="text/css" href="#file({'contentId': $webResource.contentId, 'filename':$webResource.identifier})" />
+			#end
+		#else
+    <link rel="stylesheet" type="text/css" href="/cssresources/$!{m.local.webResources.identifier}.css" />
+		#end
+  	<link rel="stylesheet" type="text/css" href="/theme/$theme/css">
 	#end
+
 #elseif($filetype=="jshead")
-	<script type="text/javascript" src="/theme/$theme/jshead"></script>
-
-  ## Render plugin contributed js
-	#foreach ($webResource in $m.local.webResources.filter("type=javascript", "location=header", "scope=external"))
-  <script type="text/javascript" src="$webResource.identifier"></script>
-	#end
-	#if(!$m.local.useConcatenation)
-		#foreach ($webResource in $m.local.webResources.filter("type=javascript", "location=header", "scope=internal"))
-    <script type="text/javascript" src="#file({'contentId': $webResource.contentId, 'filename':$webResource.identifier})"></script>
+	#if($content.themeLocation.value == "before")
+    <script type="text/javascript" src="/theme/$theme/jshead"></script>
+	  ## Render plugin contributed js
+		#foreach ($webResource in $m.local.webResources.filter("type=javascript", "location=header", "scope=external"))
+    <script type="text/javascript" src="$webResource.identifier"></script>
+		#end
+		#if(!$m.local.useConcatenation)
+			#foreach ($webResource in $m.local.webResources.filter("type=javascript", "location=header", "scope=internal"))
+      <script type="text/javascript" src="#file({'contentId': $webResource.contentId, 'filename':$webResource.identifier})"></script>
+			#end
+		#else
+    <script src="/jsresources/header-$!{m.local.webResources.identifier}.js"></script>
+		#end
+	  ## Render plugin contributed html
+		#foreach ($webResource in $m.local.webResources.filter("type=outputtemplate", "location=header"))
+			#render({"outputTemplate":"$!webResource.identifier"})
 		#end
 	#else
-  <script src="/jsresources/header-$!{m.local.webResources.identifier}.js"></script>
+	  ## Render plugin contributed js
+		#foreach ($webResource in $m.local.webResources.filter("type=javascript", "location=header", "scope=external"))
+    <script type="text/javascript" src="$webResource.identifier"></script>
+		#end
+		#if(!$m.local.useConcatenation)
+			#foreach ($webResource in $m.local.webResources.filter("type=javascript", "location=header", "scope=internal"))
+      <script type="text/javascript" src="#file({'contentId': $webResource.contentId, 'filename':$webResource.identifier})"></script>
+			#end
+		#else
+    <script src="/jsresources/header-$!{m.local.webResources.identifier}.js"></script>
+		#end
+	  ## Render plugin contributed html
+		#foreach ($webResource in $m.local.webResources.filter("type=outputtemplate", "location=header"))
+			#render({"outputTemplate":"$!webResource.identifier"})
+		#end
+    <script type="text/javascript" src="/theme/$theme/jshead"></script>
 	#end
-  ## Render plugin contributed html
-	#foreach ($webResource in $m.local.webResources.filter("type=outputtemplate", "location=header"))
-		#render({"outputTemplate":"$!webResource.identifier"})
-	#end
+	
 #elseif($filetype=="jsfoot")
-	<script type="text/javascript" src="/theme/$theme/jsfoot"></script>
-
-  ## Render plugin contributed js
-	#foreach ($webResource in $m.local.webResources.filter("type=javascript", "location=footer", "scope=external"))
-  <script type="text/javascript" src="$webResource.identifier"></script>
-	#end
-	#if(!$m.local.useConcatenation)
-		#foreach ($webResource in $m.local.webResources.filter("type=javascript", "location=footer", "scope=internal"))
-    <script type="text/javascript" src="#file({'contentId': $webResource.contentId, 'filename':$webResource.identifier})"></script>
+	#if($content.themeLocation.value == "before")
+    <script type="text/javascript" src="/theme/$theme/jsfoot"></script>
+	  ## Render plugin contributed js
+		#foreach ($webResource in $m.local.webResources.filter("type=javascript", "location=footer", "scope=external"))
+    <script type="text/javascript" src="$webResource.identifier"></script>
+		#end
+		#if(!$m.local.useConcatenation)
+			#foreach ($webResource in $m.local.webResources.filter("type=javascript", "location=footer", "scope=internal"))
+      <script type="text/javascript" src="#file({'contentId': $webResource.contentId, 'filename':$webResource.identifier})"></script>
+			#end
+		#else
+    <script src="/jsresources/$!{m.local.webResources.identifier}.js"></script>
+		#end
+	  ##Render plugin contributed html
+		#foreach ($webResource in $m.local.webResources.filter("type=outputtemplate", "location=footer"))
+			#render({"outputTemplate":"$!webResource.identifier"})
 		#end
 	#else
-  <script src="/jsresources/$!{m.local.webResources.identifier}.js"></script>
-	#end
-  ##Render plugin contributed html
-	#foreach ($webResource in $m.local.webResources.filter("type=outputtemplate", "location=footer"))
-		#render({"outputTemplate":"$!webResource.identifier"})
+	  ## Render plugin contributed js
+		#foreach ($webResource in $m.local.webResources.filter("type=javascript", "location=footer", "scope=external"))
+    <script type="text/javascript" src="$webResource.identifier"></script>
+		#end
+		#if(!$m.local.useConcatenation)
+			#foreach ($webResource in $m.local.webResources.filter("type=javascript", "location=footer", "scope=internal"))
+      <script type="text/javascript" src="#file({'contentId': $webResource.contentId, 'filename':$webResource.identifier})"></script>
+			#end
+		#else
+    <script src="/jsresources/$!{m.local.webResources.identifier}.js"></script>
+		#end
+	  ##Render plugin contributed html
+		#foreach ($webResource in $m.local.webResources.filter("type=outputtemplate", "location=footer"))
+			#render({"outputTemplate":"$!webResource.identifier"})
+		#end
+    <script type="text/javascript" src="/theme/$theme/jsfoot"></script>
 	#end
 #end
 
