@@ -1,105 +1,28 @@
 #set($filetype=$m.request.httpRequest.attributes.filetype)
+#set($themeLocation=$content.themeLocation.value)
 
 #if ($filetype=="css")
-	#if($content.themeLocation.value == "before")
-  <link rel="stylesheet" type="text/css" href="/theme/$theme/css">
-	  ## Render plugin contributed css
-		#foreach ($webResource in $m.local.webResources.filter("type=css", "scope=external"))
-    <link rel="stylesheet" type="text/css" href="$webResource.identifier" />
-		#end
-		#if(!$m.local.useConcatenation)
-			#foreach ($webResource in $m.local.webResources.filter("type=css", "scope=internal"))
-      <link rel="stylesheet" type="text/css" href="#file({'contentId': $webResource.contentId, 'filename':$webResource.identifier})" />
-			#end
-		#else
-    <link rel="stylesheet" type="text/css" href="/cssresources/$!{m.local.webResources.identifier}.css" />
-		#end
+	#if($themeLocation=="before")
+  	<link rel="stylesheet" type="text/css" href="/theme/$theme/css">
+		#parse("com.atex.plugins.themes.PluginsCss.vm")
 	#else
-	  ## Render plugin contributed css
-		#foreach ($webResource in $m.local.webResources.filter("type=css", "scope=external"))
-    <link rel="stylesheet" type="text/css" href="$webResource.identifier" />
-		#end
-		#if(!$m.local.useConcatenation)
-			#foreach ($webResource in $m.local.webResources.filter("type=css", "scope=internal"))
-      <link rel="stylesheet" type="text/css" href="#file({'contentId': $webResource.contentId, 'filename':$webResource.identifier})" />
-			#end
-		#else
-    <link rel="stylesheet" type="text/css" href="/cssresources/$!{m.local.webResources.identifier}.css" />
-		#end
+		#parse("com.atex.plugins.themes.PluginsCss.vm")
   	<link rel="stylesheet" type="text/css" href="/theme/$theme/css">
 	#end
-
 #elseif($filetype=="jshead")
-	#if($content.themeLocation.value == "before")
+	#if($themeLocation=="before")
     <script type="text/javascript" src="/theme/$theme/jshead"></script>
-	  ## Render plugin contributed js
-		#foreach ($webResource in $m.local.webResources.filter("type=javascript", "location=header", "scope=external"))
-    <script type="text/javascript" src="$webResource.identifier"></script>
-		#end
-		#if(!$m.local.useConcatenation)
-			#foreach ($webResource in $m.local.webResources.filter("type=javascript", "location=header", "scope=internal"))
-      <script type="text/javascript" src="#file({'contentId': $webResource.contentId, 'filename':$webResource.identifier})"></script>
-			#end
-		#else
-    <script src="/jsresources/header-$!{m.local.webResources.identifier}.js"></script>
-		#end
-	  ## Render plugin contributed html
-		#foreach ($webResource in $m.local.webResources.filter("type=outputtemplate", "location=header"))
-			#render({"outputTemplate":"$!webResource.identifier"})
-		#end
+		#parse("com.atex.plugins.themes.PluginsHeader.vm")
 	#else
-	  ## Render plugin contributed js
-		#foreach ($webResource in $m.local.webResources.filter("type=javascript", "location=header", "scope=external"))
-    <script type="text/javascript" src="$webResource.identifier"></script>
-		#end
-		#if(!$m.local.useConcatenation)
-			#foreach ($webResource in $m.local.webResources.filter("type=javascript", "location=header", "scope=internal"))
-      <script type="text/javascript" src="#file({'contentId': $webResource.contentId, 'filename':$webResource.identifier})"></script>
-			#end
-		#else
-    <script src="/jsresources/header-$!{m.local.webResources.identifier}.js"></script>
-		#end
-	  ## Render plugin contributed html
-		#foreach ($webResource in $m.local.webResources.filter("type=outputtemplate", "location=header"))
-			#render({"outputTemplate":"$!webResource.identifier"})
-		#end
+		#parse("com.atex.plugins.themes.PluginsHeader.vm")
     <script type="text/javascript" src="/theme/$theme/jshead"></script>
 	#end
-	
 #elseif($filetype=="jsfoot")
-	#if($content.themeLocation.value == "before")
+	#if($themeLocation=="before")
     <script type="text/javascript" src="/theme/$theme/jsfoot"></script>
-	  ## Render plugin contributed js
-		#foreach ($webResource in $m.local.webResources.filter("type=javascript", "location=footer", "scope=external"))
-    <script type="text/javascript" src="$webResource.identifier"></script>
-		#end
-		#if(!$m.local.useConcatenation)
-			#foreach ($webResource in $m.local.webResources.filter("type=javascript", "location=footer", "scope=internal"))
-      <script type="text/javascript" src="#file({'contentId': $webResource.contentId, 'filename':$webResource.identifier})"></script>
-			#end
-		#else
-    <script src="/jsresources/$!{m.local.webResources.identifier}.js"></script>
-		#end
-	  ##Render plugin contributed html
-		#foreach ($webResource in $m.local.webResources.filter("type=outputtemplate", "location=footer"))
-			#render({"outputTemplate":"$!webResource.identifier"})
-		#end
+		#parse("com.atex.plugins.themes.PluginsFooter.vm")
 	#else
-	  ## Render plugin contributed js
-		#foreach ($webResource in $m.local.webResources.filter("type=javascript", "location=footer", "scope=external"))
-    <script type="text/javascript" src="$webResource.identifier"></script>
-		#end
-		#if(!$m.local.useConcatenation)
-			#foreach ($webResource in $m.local.webResources.filter("type=javascript", "location=footer", "scope=internal"))
-      <script type="text/javascript" src="#file({'contentId': $webResource.contentId, 'filename':$webResource.identifier})"></script>
-			#end
-		#else
-    <script src="/jsresources/$!{m.local.webResources.identifier}.js"></script>
-		#end
-	  ##Render plugin contributed html
-		#foreach ($webResource in $m.local.webResources.filter("type=outputtemplate", "location=footer"))
-			#render({"outputTemplate":"$!webResource.identifier"})
-		#end
+		#parse("com.atex.plugins.themes.PluginsFooter.vm")
     <script type="text/javascript" src="/theme/$theme/jsfoot"></script>
 	#end
 #end
