@@ -2,21 +2,14 @@ package com.atex.plugins.themes;
 
 import com.atex.onecms.content.ContentManager;
 import com.atex.plugins.baseline.policy.BaselinePolicy;
-import com.polopoly.cm.app.policy.RadioButtonPolicy;
-import com.polopoly.cm.app.policy.SingleValuePolicy;
-import com.polopoly.cm.client.CMException;
+import com.google.common.base.Optional;
 import com.polopoly.model.DescribesModelType;
-
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  * Policy that provides the plugin configuration.
  */
 @DescribesModelType
 public class ThemesConfigurationPolicy extends BaselinePolicy implements ThemesConfiguration {
-
-    private static final Logger LOGGER = Logger.getLogger(ThemesConfigurationPolicy.class.getName());
 
     private ContentManager contentManager;
 
@@ -31,101 +24,39 @@ public class ThemesConfigurationPolicy extends BaselinePolicy implements ThemesC
 
 
     @Override
-    public int getLineBreakSettings(){
-        int result = 0;
-
-        try{
-            result = Integer.parseInt(((SingleValuePolicy)getChildPolicy("line-break")).getValue());;
-        }catch (CMException e){
-            LOGGER.log(Level.SEVERE, "Cannot parse field : " + e.getMessage(), e);
-        }
-
-        return result;
+    public int getLineBreakSettings() {
+        return Integer.parseInt(getSingleValue("line-break", "0"));
     }
 
     @Override
     public boolean getWarningSettings() {
-        boolean result = false;
-
-        try{
-            String settings = ((RadioButtonPolicy)getChildPolicy("warn")).getValue();
-            if(settings.equals("yes")){
-                result = true;
-            }else{
-                result = false;
-            }
-        }catch (CMException e){
-            LOGGER.log(Level.SEVERE, "Cannot parse field : " + e.getMessage(), e);
-        }
-
-        return result;
+        return getSingleValue("warn", "").equals("yes");
     }
 
     @Override
     public boolean getNomungeSettings() {
-        boolean result = false;
-
-        try{
-            String settings = ((RadioButtonPolicy)getChildPolicy("nomunge")).getValue();
-            if(settings.equals("yes")){
-                result = true;
-            }else{
-                result = false;
-            }
-        }catch (CMException e){
-            LOGGER.log(Level.SEVERE, "Cannot parse field : " + e.getMessage(), e);
-        }
-
-        return result;
+        return getSingleValue("nomunge", "").equals("yes");
     }
 
     @Override
     public boolean getDebugModeSettings() {
-        boolean result = false;
-
-        try{
-            String settings = ((RadioButtonPolicy)getChildPolicy("debugMode")).getValue();
-            if(settings.equals("yes")){
-                result = true;
-            }else{
-                result = false;
-            }
-        }catch (CMException e){
-            LOGGER.log(Level.SEVERE, "Cannot parse field : " + e.getMessage(), e);
-        }
-
-        return result;
+        return getSingleValue("debugMode", "").equals("yes");
     }
 
     @Override
     public int getCacheTimeSettings() {
-        int result = 0;
-
-        try{
-            result = Integer.parseInt(((SingleValuePolicy)getChildPolicy("cache-time")).getValue());;
-        }catch (CMException e){
-            LOGGER.log(Level.SEVERE, "Cannot parse field : " + e.getMessage(), e);
-        }
-
-        return result;
+        return Integer.parseInt(getSingleValue("cache-time", "0"));
     }
 
     @Override
     public boolean getPreserveSemiSettings() {
-        boolean result = false;
+        return getSingleValue("preserve-semi", "").equals("yes");
+    }
 
-        try{
-            String settings = ((RadioButtonPolicy)getChildPolicy("preserve-semi")).getValue();
-            if(settings.equals("yes")){
-                result = true;
-            }else{
-                result = false;
-            }
-        }catch (CMException e){
-            LOGGER.log(Level.SEVERE, "Cannot parse field : " + e.getMessage(), e);
-        }
-
-        return result;
+    private String getSingleValue(final String name, final String defaultValue) {
+        return Optional
+                .fromNullable(getChildValue(name, defaultValue))
+                .or(defaultValue);
     }
 
 }

@@ -3,13 +3,13 @@
 <script type="text/javascript" src="$webResource.identifier"></script>
 #end
 #if(!$m.local.useConcatenation)
-	#foreach ($webResource in $m.local.webResources.filter("type=javascript", "location=header", "scope=internal"))
+  #foreach ($webResource in $m.local.webResources.filter("type=javascript", "location=header", "scope=internal"))
   <script type="text/javascript" src="#file({'contentId': $webResource.contentId, 'filename':$webResource.identifier})"></script>
-	#end
+  #end
 #else
 <script src="/jsresources/header-$!{m.local.webResources.identifier}.js"></script>
 #end
 ## Render plugin contributed html
 #foreach ($webResource in $m.local.webResources.filter("type=outputtemplate", "location=header"))
-	#render({"outputTemplate":"$!webResource.identifier"})
+  #render({"outputTemplate":"$!webResource.identifier"})
 #end

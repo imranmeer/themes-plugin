@@ -3,9 +3,9 @@
 <link rel="stylesheet" type="text/css" href="$webResource.identifier" />
 #end
 #if(!$m.local.useConcatenation)
-	#foreach ($webResource in $m.local.webResources.filter("type=css", "scope=internal"))
+  #foreach ($webResource in $m.local.webResources.filter("type=css", "scope=internal"))
   <link rel="stylesheet" type="text/css" href="#file({'contentId': $webResource.contentId, 'filename':$webResource.identifier})" />
-	#end
+  #end
 #else
 <link rel="stylesheet" type="text/css" href="/cssresources/$!{m.local.webResources.identifier}.css" />
 #end

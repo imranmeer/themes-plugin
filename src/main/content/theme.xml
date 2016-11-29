@@ -158,11 +158,24 @@ This will contain the list of Java Script Files which will be loaded in the page
         </field>
         <field name="base" input-template="com.atex.plugins.themes.ThemeElement.Base" />
       </layout>
-        <layout name="excludePage" input-template="p.Page" label="Exclusion">
-            <field name="excludePattern" input-template="p.TextInput" label="Exclude pattern">
-                <help>For multiple pattern exclusion, please separate the pattern with ';'</help>
-            </field>
-        </layout>
+      <layout name="excludePage" input-template="p.Page" label="Exclusion">
+        <field name="excludePattern" input-template="p.TextArea" label="Exclude pattern">
+          <help>These are regexp, for multiple pattern exclusion, please place a pattern on each line</help>
+          <param name="width">-1</param>
+          <param name="height">75</param>
+          <param name="rows">5</param>
+          <param name="cols">50</param>
+        </field>
+      </layout>
+      <layout name="deduplicationPage" input-template="p.Page" label="De-Duplication">
+        <field name="deduplicationPattern" input-template="p.TextArea" label="De-duplication pattern">
+          <help>These are regexp, for multiple pattern de-duplication, please place a pattern on each line</help>
+          <param name="width">-1</param>
+          <param name="height">75</param>
+          <param name="rows">5</param>
+          <param name="cols">50</param>
+        </field>
+      </layout>
       <layout name="settings" input-template="p.Page" label="cm.general.Advanced">
           <param name="lazyInit">true</param>
           <field name="filemanager" input-template="p.FileManager" label="Manage your files">
@@ -195,8 +208,8 @@ This will contain the list of Java Script Files which will be loaded in the page
     <output-templates mode="www">
       <id>com.atex.plugins.themes.ThemeElement.ot</id>
     </output-templates>
-      <output-templates mode="mobile">
-          <id>com.atex.plugins.themes.ThemeElement.ot</id>
-      </output-templates>
+    <output-templates mode="mobile">
+        <id>com.atex.plugins.themes.ThemeElement.ot</id>
+    </output-templates>
   </input-template>
 </template-definition>
