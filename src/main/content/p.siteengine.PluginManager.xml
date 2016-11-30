@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<template-definition version="1.0" xmlns="http://www.polopoly.com/polopoly/cm/app/xml">
+
+  <input-template name="p.siteengine.PluginManager" label="p.siteengine.PluginManager">
+    <policy>com.atex.plugins.themes.ThemePluginManagerPolicy</policy>
+    <editor>com.polopoly.cm.app.widget.OTopPolicyWidget</editor>
+    <viewer>com.polopoly.cm.app.widget.OTopPolicyWidget</viewer>
+    <param name="templateIcon">components.png</param>
+    <type>Content</type>
+    <field name="resourceTreatmentStatus" input-template="p.RadioButtonGroup" label="p.siteengine.PluginManager.resources.label">
+      <help>p.siteengine.PluginManager.resources.help</help>
+      <param name="inlineHelp">true</param>
+      <param name="horizontalRendering">true</param>
+      <param name="selected">0</param>
+      <param name="label_0">p.siteengine.PluginManager.resources.off</param>
+      <param name="value_0">off</param>
+      <param name="label_1">p.siteengine.PluginManager.resources.concatenate</param>
+      <param name="value_1">concatenate</param>
+    </field>
+    <field name="excludePattern" input-template="p.TextArea" label="Exclude pattern">
+      <help>These are regexp, for multiple pattern exclusion, please place a pattern on each line</help>
+      <param name="width">-1</param>
+      <param name="height">75</param>
+      <param name="rows">5</param>
+      <param name="cols">50</param>
+    </field>
+    <field name="deduplicationPattern" input-template="p.TextArea" label="De-duplication pattern">
+      <help>These are regexp, for multiple pattern de-duplication, please place a pattern on each line</help>
+      <param name="width">-1</param>
+      <param name="height">75</param>
+      <param name="rows">5</param>
+      <param name="cols">50</param>
+    </field>
+    <field name="plugins" input-template="p.ContentListEntryContainer" label="p.siteengine.PluginManager.installedPlugins">
+      <param name="inlineHelp">true</param>
+      <help>p.siteengine.PluginManager.installedPlugins.help</help>
+    </field>
+    <field name="excludedplugins" input-template="p.ContentListEntryContainer" label="Excluded plugins">
+      <param name="contentListName">excludedplugins</param>
+    </field>
+  </input-template>
+
+</template-definition>

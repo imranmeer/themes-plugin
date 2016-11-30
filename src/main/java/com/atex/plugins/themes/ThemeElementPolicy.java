@@ -5,14 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import java.util.regex.Pattern;
 
-import javax.annotation.Nullable;
-
-import com.google.common.base.Function;
-import com.google.common.base.Splitter;
-import com.google.common.collect.Iterables;
-import com.google.common.collect.Lists;
 import com.polopoly.cm.ContentId;
 import com.polopoly.cm.app.policy.CheckboxPolicy;
 import com.polopoly.cm.app.policy.ContentSingleSelectPolicy;
@@ -27,41 +20,6 @@ import com.polopoly.cm.policy.Policy;
 public class ThemeElementPolicy extends ElementPolicy {
 
     private static Logger LOG = Logger.getLogger(ThemeElementPolicy.class.getName());
-
-    private static final String EXCLUDE_PATTERN = "excludePattern";
-    private static final String DEDUPLICATION_PATTERN = "deduplicationPattern";
-
-    public String getExcludePattern() {
-        return getChildValue(EXCLUDE_PATTERN, "");
-    }
-
-    public List<Pattern> getExcludePatternList() {
-        return patternToList(getExcludePattern());
-    }
-
-    public String getDeDuplicationPattern() {
-        return getChildValue(DEDUPLICATION_PATTERN, "");
-    }
-
-    public List<Pattern> getDeDuplicationPatternList() {
-        return patternToList(getDeDuplicationPattern());
-    }
-
-    private List<Pattern> patternToList(final String pattern) {
-        return Lists.newArrayList(
-                Iterables.transform(
-                        Splitter
-                                .onPattern("\r\n|\r|\n")
-                                .omitEmptyStrings()
-                                .split(pattern),
-                        new Function<String, Pattern>() {
-                            @Nullable
-                            @Override
-                            public Pattern apply(@Nullable final String s) {
-                                return Pattern.compile(s);
-                            }
-                        }));
-    }
 
     public List<WebFileResource> getFiles(String type) throws CMException, IOException {
 
