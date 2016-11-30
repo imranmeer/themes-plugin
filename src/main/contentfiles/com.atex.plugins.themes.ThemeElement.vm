@@ -1,10 +1,29 @@
 #set($filetype=$m.request.httpRequest.attributes.filetype)
+#set($themeLocation=$content.themeLocation.value)
 
 #if ($filetype=="css")
-	<link rel="stylesheet" type="text/css" href="/theme/$theme/css">
+	#if($themeLocation=="before")
+  	<link rel="stylesheet" type="text/css" href="/theme/$theme/css">
+		#parse("com.atex.plugins.themes.PluginsCss.vm")
+	#else
+		#parse("com.atex.plugins.themes.PluginsCss.vm")
+  	<link rel="stylesheet" type="text/css" href="/theme/$theme/css">
+	#end
 #elseif($filetype=="jshead")
-<script type="text/javascript" src="/theme/$theme/jshead"></script>
+	#if($themeLocation=="before")
+    <script type="text/javascript" src="/theme/$theme/jshead"></script>
+		#parse("com.atex.plugins.themes.PluginsHeader.vm")
+	#else
+		#parse("com.atex.plugins.themes.PluginsHeader.vm")
+    <script type="text/javascript" src="/theme/$theme/jshead"></script>
+	#end
 #elseif($filetype=="jsfoot")
-<script type="text/javascript" src="/theme/$theme/jsfoot"></script>
+	#if($themeLocation=="before")
+    <script type="text/javascript" src="/theme/$theme/jsfoot"></script>
+		#parse("com.atex.plugins.themes.PluginsFooter.vm")
+	#else
+		#parse("com.atex.plugins.themes.PluginsFooter.vm")
+    <script type="text/javascript" src="/theme/$theme/jsfoot"></script>
+	#end
 #end
 

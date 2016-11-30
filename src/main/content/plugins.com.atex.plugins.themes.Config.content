@@ -1,0 +1,10 @@
+id:plugins.com.atex.gong.plugins.themes-plugin.Config
+major:appconfig
+inputtemplate:com.atex.plugins.themes.Config.it
+name:Themes Configuration
+component:line-break:value:-1
+component:warn:selected:no
+component:nomunge:selected:yes
+component:debugMode:selected:no
+component:cache-time:value:31536000
+component:preserve-semi:selected:no

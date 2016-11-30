@@ -1,12 +1,18 @@
 package com.atex.plugins.themes;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 
 import org.apache.commons.collections.CollectionUtils;
 
+import com.polopoly.cm.ExternalContentId;
+import com.polopoly.cm.client.CMException;
 import com.polopoly.cm.policy.PolicyCMServer;
+import com.polopoly.model.ModelPathUtil;
+import com.polopoly.plugin.PluginManagerPolicy;
+import com.polopoly.plugin.PluginWebResources;
 import com.polopoly.render.CacheInfo;
 import com.polopoly.render.RenderRequest;
 import com.polopoly.siteengine.dispatcher.ControllerContext;
@@ -15,46 +21,67 @@ import com.polopoly.siteengine.mvc.RenderControllerBase;
 
 /**
  * Element code controller. Populates a model with custom code.
- * 
  */
 public class RenderControllerThemeElement extends RenderControllerBase {
 
-	private static Logger LOG = Logger.getLogger(RenderControllerThemeElement.class.getName());
+    private static Logger LOG = Logger.getLogger(RenderControllerThemeElement.class.getName());
 
-	@Override
-	public void populateModelAfterCacheKey(RenderRequest request, TopModel m, CacheInfo cacheInfo, ControllerContext context) {
-		try {
-			String filetype = (String) request.getAttribute("filetype");
+    private static final ExternalContentId PLUGINS_CONTENT_ID = new ExternalContentId("p.siteengine.Plugins.d");
 
-			if (filetype != null) {
-				PolicyCMServer cmServer = getCmClient(context).getPolicyCMServer();
+    @Override
+    public void populateModelAfterCacheKey(RenderRequest request, TopModel m, CacheInfo cacheInfo, ControllerContext context) {
+        PolicyCMServer cmServer = getCmClient(context).getPolicyCMServer();
 
-				ThemeElementPolicy p = (ThemeElementPolicy) cmServer.getPolicy(context.getContentId());
+        // To add plugins web resources with exclusion of resources name
+        // that matched exclusion pattern defined by user in GUI
 
-				ArrayList<WebFileResource> allfiles = new ArrayList<WebFileResource>();
-				ArrayList<WebFileResource> files = p.getFiles(filetype);
+        if (m.getLocal().getAttribute("webResources") == null) {
+            try {
+                final PluginManagerPolicy pluginManagerPolicy = this.getPluginManager(cmServer);
+                final PluginWebResources webResources = pluginManagerPolicy.getWebResources();
 
-				if (CollectionUtils.isNotEmpty(files)) {
-					allfiles.addAll(files);
-				}
+                LOG.log(Level.FINE, "Setting webresources in local scope");
+                m.getLocal().setAttribute("useConcatenation", pluginManagerPolicy.isConcatenateResources());
+                m.getLocal().setAttribute("webResources", webResources);
+            } catch (CMException e) {
+                LOG.log(Level.WARNING, "Error adding web resources", e);
+            }
+        }
 
-				ThemeElementPolicy basep = p.getBaseThemePolicy();
-				if (basep != null) {
-					ArrayList<WebFileResource> basefiles = basep.getFiles(filetype);
-					if (basefiles != null && basefiles.size() > 0) {
-						allfiles.addAll(basefiles);
-					}
-				}
+        try {
+            final String filetype = (String) request.getAttribute("filetype");
 
-				m.getLocal().setAttribute("theme", p.getContentId().getContentIdString());
-				m.getLocal().setAttribute("files", allfiles);
+            if (filetype != null) {
 
-			}
+                final ThemeElementPolicy themePolicy = (ThemeElementPolicy) ModelPathUtil.getBean(context.getContentModel());
 
-		} catch (Exception e) {
-			LOG.log(Level.WARNING, e.getLocalizedMessage(), e);
-		}
+                final List<WebFileResource> allfiles = new ArrayList<WebFileResource>();
+                final List<WebFileResource> files = themePolicy.getFiles(filetype);
 
-	}
+                if (CollectionUtils.isNotEmpty(files)) {
+                    allfiles.addAll(files);
+                }
+
+                final ThemeElementPolicy basep = themePolicy.getBaseThemePolicy();
+                if (basep != null) {
+                    final List<WebFileResource> basefiles = basep.getFiles(filetype);
+                    if (basefiles != null && basefiles.size() > 0) {
+                        allfiles.addAll(basefiles);
+                    }
+                }
+
+                m.getLocal().setAttribute("theme", themePolicy.getContentId().getContentIdString());
+                m.getLocal().setAttribute("files", allfiles);
+            }
+
+        } catch (Exception e) {
+            LOG.log(Level.WARNING, e.getLocalizedMessage(), e);
+        }
+
+    }
+
+    private PluginManagerPolicy getPluginManager(PolicyCMServer cmServer) throws CMException {
+        return (PluginManagerPolicy) cmServer.getPolicy(PLUGINS_CONTENT_ID);
+    }
 
 }

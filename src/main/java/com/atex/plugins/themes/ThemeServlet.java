@@ -1,21 +1,25 @@
 package com.atex.plugins.themes;
 
-/**
- * @author peterabjohns
- */
-/**
- *
- */
+import java.io.ByteArrayOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
+import java.io.OutputStreamWriter;
+import java.io.PrintWriter;
+import java.io.StringReader;
+import java.io.StringWriter;
+import java.io.Writer;
+import java.util.Date;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
-import com.polopoly.application.servlet.ApplicationServletUtil;
-import com.polopoly.cm.ContentId;
-import com.polopoly.cm.ContentIdFactory;
-import com.polopoly.cm.client.CMException;
-import com.polopoly.cm.client.CmClient;
-import com.polopoly.cm.client.CmClientBase;
-import com.polopoly.cm.policy.PolicyCMServer;
-import com.yahoo.platform.yui.compressor.CssCompressor;
-import com.yahoo.platform.yui.compressor.JavaScriptCompressor;
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+
 import org.apache.commons.lang.StringUtils;
 import org.apache.velocity.app.Velocity;
 import org.apache.velocity.app.VelocityEngine;
@@ -24,22 +28,22 @@ import org.apache.velocity.tools.view.servlet.ServletToolboxManager;
 import org.mozilla.javascript.ErrorReporter;
 import org.mozilla.javascript.EvaluatorException;
 
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-import java.io.*;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
+import com.google.common.collect.Lists;
+import com.polopoly.application.servlet.ApplicationServletUtil;
+import com.polopoly.cm.ContentId;
+import com.polopoly.cm.ContentIdFactory;
+import com.polopoly.cm.ExternalContentId;
+import com.polopoly.cm.client.CMException;
+import com.polopoly.cm.client.CmClient;
+import com.polopoly.cm.client.CmClientBase;
+import com.polopoly.cm.policy.PolicyCMServer;
+import com.yahoo.platform.yui.compressor.CssCompressor;
+import com.yahoo.platform.yui.compressor.JavaScriptCompressor;
+
 /**
- *
  * Exports the submitted form results.
  *
  * @author Pete Rabjohns
- *
  */
 public class ThemeServlet extends HttpServlet {
 
@@ -61,11 +65,14 @@ public class ThemeServlet extends HttpServlet {
 
     ServletToolboxManager toolboxManager;
 
-    @Override
-    protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+    public static final String CONFIG_EXTERNALID = "plugins.com.atex.gong.plugins.themes-plugin.Config";
+    final ExternalContentId configId = new ExternalContentId(CONFIG_EXTERNALID);
 
-        try
-        {
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException {
+
+        try {
             defaultEncoding = "UTF8";
 
             String uri = request.getRequestURI().substring(1);
@@ -83,22 +90,24 @@ public class ThemeServlet extends HttpServlet {
             if (StringUtils.isBlank(themeCid)) {
                 throw new ServletException("No theme specified");
             }
-            if (StringUtils.isBlank(type) ) {
+            if (StringUtils.isBlank(type)) {
                 throw new ServletException("No type specified");
             }
 
             ContentId cid = ContentIdFactory.createContentId(themeCid);
 
-            ThemeElementPolicy theme = (ThemeElementPolicy) cmServer.getPolicy(cid);
-            ArrayList<WebFileResource> files = theme.getFiles (type);
-            
-            ThemeElementPolicy themebase = theme.getBaseThemePolicy();
-            ArrayList < WebFileResource > basefiles = new ArrayList<WebFileResource>();
-            if(themebase != null){
-            	basefiles = themebase.getFiles(type);
+            final ThemeElementPolicy theme = (ThemeElementPolicy) cmServer.getPolicy(cid);
+            final List<WebFileResource> files = theme.getFiles(type);
+
+            final ThemeElementPolicy themebase = theme.getBaseThemePolicy();
+            final List<WebFileResource> basefiles;
+            if (themebase != null) {
+                basefiles = themebase.getFiles(type);
+            } else {
+                basefiles = Lists.newArrayList();
             }
-            
-            String textType ;
+
+            String textType;
             if (type.startsWith("css")) {
                 textType = "css";
             } else {
@@ -115,15 +124,9 @@ public class ThemeServlet extends HttpServlet {
             exportWebFileResources(files, theme, themebase, out, request, response);
 
             response.setStatus(200);
-        }
-        catch (Exception e)
-        {
+        } catch (StackOverflowError | Exception e) {
             response.setStatus(500);
             LOG.log(Level.WARNING, "Error during minification for request " + request.getRequestURL(), e);
-        } catch (StackOverflowError e) {
-            response.setStatus(500);
-            LOG.log(Level.WARNING, "Error during minification for request " + request.getRequestURL(), e);
-
         }
     }
 
@@ -133,21 +136,23 @@ public class ThemeServlet extends HttpServlet {
      * @param files, theme, out
      * @throws CMException, IOException
      */
-    private void exportWebFileResources(ArrayList<WebFileResource> files, ThemeElementPolicy theme, ThemeElementPolicy basetheme, PrintWriter out, HttpServletRequest request, HttpServletResponse response) throws CMException, IOException{
-    	
-    	if(files != null && files.size() > 0){
-    		for (WebFileResource f : files) {
+    private void exportWebFileResources(List<WebFileResource> files, ThemeElementPolicy theme, ThemeElementPolicy basetheme, PrintWriter out, HttpServletRequest request, HttpServletResponse response)
+            throws CMException, IOException {
 
-    			ByteArrayOutputStream fileout = new ByteArrayOutputStream();
-    			theme.exportFile(f.getPath(), fileout);
-                String data = fileout.toString(defaultEncoding).replaceAll("url\\s*\\(\"?\\/?(?:[^\\/]+\\/)*?([^\\/]+?\\.[a-z]+).*?\\)", "url('#file({'filename': 'file/$1', 'contentId': \\$content.contentId, '':''})')");
+        if (files != null && files.size() > 0) {
+            for (WebFileResource f : files) {
+
+                ByteArrayOutputStream fileout = new ByteArrayOutputStream();
+                theme.exportFile(f.getPath(), fileout);
+                String data = fileout.toString(defaultEncoding)
+                                     .replaceAll("url\\s*\\(\"?\\/?(?:[^\\/]+\\/)*?([^\\/]+?\\.[a-z]+).*?\\)", "url('#file({'filename': 'file/$1', 'contentId': \\$content.contentId, '':''})')");
 
                 if (debugMode) {
                     if (f.isJavaScript()) {
-                        LOG.info ("Serving debug Javascript file " + f);
+                        LOG.info("Serving debug Javascript file " + f);
                         out.write(fileout.toString(defaultEncoding));
                     } else {
-                        LOG.info ("Serving debug velocity CSS file " + f);
+                        LOG.info("Serving debug velocity CSS file " + f);
                         translateVelocity(out, data, theme, basetheme, request, response);
                     }
                 } else {
@@ -160,16 +165,16 @@ public class ThemeServlet extends HttpServlet {
                         */
                         translateVelocity(out, data, theme, basetheme, request, response);
                     } else if (f.isJavaScript()) {                        
-						/* Leave this in for reference, but the currently implementation of the JS compressor has bugs                       
+                        /* Leave this in for reference, but the currently implementation of the JS compressor has bugs
                         out.write(getCompressedJavaScript(new ByteArrayInputStream(fileout.toByteArray())));
-						*/
-						out.write(fileout.toString(defaultEncoding));
+                        */
+                        out.write(fileout.toString(defaultEncoding));
                     }
                 }
-    			out.println();
-    		}
-    	}
-    	out.flush();
+                out.println();
+            }
+        }
+        out.flush();
     }
 
 
@@ -180,7 +185,7 @@ public class ThemeServlet extends HttpServlet {
      * @throws IOException
      */
     private String getCompressedJavaScript(InputStream inputStream) throws IOException {
-        InputStreamReader isr = new InputStreamReader(inputStream,defaultEncoding);
+        InputStreamReader isr = new InputStreamReader(inputStream, defaultEncoding);
 
         JavaScriptCompressor compressor = new JavaScriptCompressor(isr, new CompressorFilterErrorReporter());
         inputStream.close();
@@ -193,26 +198,26 @@ public class ThemeServlet extends HttpServlet {
         return buffer.toString();
     }
 
-    private void translateVelocity(Writer out, String data, ThemeElementPolicy theme, ThemeElementPolicy basetheme, HttpServletRequest request, HttpServletResponse response) throws IOException, CMException {
+    private void translateVelocity(Writer out, String data, ThemeElementPolicy theme, ThemeElementPolicy basetheme, HttpServletRequest request, HttpServletResponse response)
+            throws IOException, CMException {
 
 
-        ChainedContext ctx = new ChainedContext((VelocityEngine)null, request, response, getServletContext());
+        ChainedContext ctx = new ChainedContext((VelocityEngine) null, request, response, getServletContext());
 
         ctx.setToolbox(toolboxManager.getToolbox(ctx));
 
-        ctx.put("content",  theme);
-        ctx.put("basecontent",  basetheme);
+        ctx.put("content", theme);
+        ctx.put("basecontent", basetheme);
         ctx.put("ctx", ctx);
 
         Velocity.evaluate(ctx, out, "theme-logging", data);
     }
 
     /**
-     *
      * @throws IOException
      */
     private String getCompressedCss(StringBuffer in) throws IOException {
-        CssCompressor compressor = new CssCompressor(new StringReader (in.toString()));
+        CssCompressor compressor = new CssCompressor(new StringReader(in.toString()));
 
         StringWriter out = new StringWriter();
         compressor.compress(out, lineBreakCol);
@@ -236,35 +241,13 @@ public class ThemeServlet extends HttpServlet {
                 CmClientBase.DEFAULT_COMPOUND_NAME));
         cmServer = cmClient.getPolicyCMServer();
 
-        String lineBreak = config.getInitParameter("line-break");
-        if (lineBreak != null) {
-            lineBreakCol = Integer.parseInt(lineBreak);
-        }
-
-        String warnString = config.getInitParameter("warn");
-        if (warnString != null) {
-            warn = Boolean.parseBoolean(warnString);
-        }
-
-        String noMungeString = config.getInitParameter("nomunge");
-        if (noMungeString != null) {
-            munge = Boolean.parseBoolean(noMungeString) ? false : true; //swap values because it's nomunge
-        }
-
-        String debugModeString = config.getInitParameter("debugMode");
-        if (debugModeString != null) {
-            debugMode = Boolean.parseBoolean(debugModeString);
-        }
-
-        String cacheTimeString = config.getInitParameter("cache-time");
-        if (cacheTimeString != null) {
-            cacheTime = Integer.parseInt(cacheTimeString);
-        }
-
-        String preserveAllSemiColonsString = config.getInitParameter("preserve-semi");
-        if (preserveAllSemiColonsString != null) {
-            preserveAllSemiColons = Boolean.parseBoolean(preserveAllSemiColonsString);
-        }
+        ThemesConfiguration themesConfiguration = getThemesConfiguration(cmClient.getPolicyCMServer());
+        lineBreakCol = themesConfiguration.getLineBreakSettings();
+        warn = themesConfiguration.getWarningSettings();
+        munge = themesConfiguration.getNomungeSettings();
+        debugMode = themesConfiguration.getDebugModeSettings();
+        cacheTime = themesConfiguration.getCacheTimeSettings();
+        preserveAllSemiColons = themesConfiguration.getPreserveSemiSettings();
 
         toolboxManager = ServletToolboxManager.getInstance(getServletContext(), "/WEB-INF/toolbox.xml");
 
@@ -295,5 +278,14 @@ public class ThemeServlet extends HttpServlet {
             error(message, sourceName, line, lineSource, lineOffset);
             return new EvaluatorException(message);
         }
+    }
+
+    ThemesConfiguration getThemesConfiguration(final PolicyCMServer cmServer) {
+        try {
+            return (ThemesConfigurationPolicy) cmServer.getPolicy(configId);
+        } catch (CMException e) {
+            LOG.log(Level.SEVERE, "Cannot load configuration from " + CONFIG_EXTERNALID + ": " + e.getMessage(), e);
+        }
+        return null;
     }
 }
