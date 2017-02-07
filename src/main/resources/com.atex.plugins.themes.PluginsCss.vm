@@ -1,11 +1,23 @@
 ## Render plugin contributed css
 #foreach ($webResource in $m.local.webResources.filter("type=css", "scope=external"))
-<link rel="stylesheet" type="text/css" href="$webResource.identifier" />
+  #if($string_utils.endsWith($webResource.identifier, '-print.css'))
+    <link rel="stylesheet" media="print" type="text/css" href="$webResource.identifier" />
+  #else
+    <link rel="stylesheet" media="screen" type="text/css" href="$webResource.identifier" />
+  #end
 #end
 #if(!$m.local.useConcatenation)
   #foreach ($webResource in $m.local.webResources.filter("type=css", "scope=internal"))
-  <link rel="stylesheet" type="text/css" href="#file({'contentId': $webResource.contentId, 'filename':$webResource.identifier})" />
+    #if($string_utils.endsWith($webResource.identifier, '-print.css'))
+      <link rel="stylesheet" media="print" type="text/css" href="#file({'contentId': $webResource.contentId, 'filename':$webResource.identifier})" />
+    #else
+      <link rel="stylesheet" media="screen" type="text/css" href="#file({'contentId': $webResource.contentId, 'filename':$webResource.identifier})" />
+    #end
   #end
 #else
-<link rel="stylesheet" type="text/css" href="/cssresources/$!{m.local.webResources.identifier}.css" />
+  #if($string_utils.endsWith($!{m.local.webResources.identifier}, '-print.css'))
+    <link rel="stylesheet" media="print" type="text/css" href="/cssresources/$!{m.local.webResources.identifier}.css" />
+  #else
+    <link rel="stylesheet" media="screen" type="text/css" href="/cssresources/$!{m.local.webResources.identifier}.css" />
+  #end
 #end
