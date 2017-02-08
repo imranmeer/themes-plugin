@@ -95,13 +95,5 @@ Add a theme .content for to your project, add put the files needed as relative t
 
 The plugin also has a configuration panel which can be located in ... > SiteEngine > Configuration > Plugins > Themes Plugin.
 
-The plugin will differentiate 2 type of media for CSS files based on the following file naming convention.
-If the CSS file name are ENDING with "-print.css", the plugin will render it as :
-
-<link rel='stylesheet' media='print' .....
-
-Otherwise, it will render it as :
-
-<link rel='stylesheet' media='screen' .....
 
 			
