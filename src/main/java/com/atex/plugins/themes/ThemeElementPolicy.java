@@ -92,6 +92,7 @@ public class ThemeElementPolicy extends ElementPolicy {
 
                     if (fileName != null && fileName.endsWith("-print.css")) {
                         mediaType = "print";
+                        break;
                     }else{
                         mediaType = "screen";
                     }
