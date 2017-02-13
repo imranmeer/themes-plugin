@@ -73,4 +73,31 @@ public class ThemeElementPolicy extends ElementPolicy {
         }
         return null;
     }
+
+    public String getMediaType() throws CMException, IOException{
+        String mediaType = "";
+        final String dupname = "cssdir";
+        final String duppolicy = "cssfile";
+
+        final DuplicatorPolicy dup = (DuplicatorPolicy) getChildPolicy(dupname);
+
+        if (dup != null) {
+            final List duplist = dup.getDuplicatorElements();
+
+            if (duplist != null) {
+                final List<WebFileResource> files = new ArrayList<WebFileResource>(duplist.size());
+                for (int i = 0; i < duplist.size(); i++) {
+                    final FilePolicy fp = (FilePolicy) ((DuplicatorPolicy.DuplicatorElement) duplist.get(i)).getChildPolicy(duppolicy);
+                    final String fileName = fp.getFileName();
+
+                    if (fileName != null && fileName.endsWith("-print.css")) {
+                        mediaType = "print";
+                    }else{
+                        mediaType = "screen";
+                    }
+                }
+            }
+        }
+        return mediaType;
+    }
 }

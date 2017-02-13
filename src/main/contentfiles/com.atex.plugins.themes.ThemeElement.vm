@@ -3,11 +3,11 @@
 
 #if ($filetype=="css")
 	#if($themeLocation=="before")
-  	<link rel="stylesheet" type="text/css" href="/theme/$theme/css">
+  	<link rel="stylesheet" type="text/css" media="$mediaType" href="/theme/$theme/css">
 		#parse("com.atex.plugins.themes.PluginsCss.vm")
 	#else
 		#parse("com.atex.plugins.themes.PluginsCss.vm")
-  	<link rel="stylesheet" type="text/css" href="/theme/$theme/css">
+  	<link rel="stylesheet" type="text/css" media="$mediaType" href="/theme/$theme/css">
 	#end
 #elseif($filetype=="jshead")
 	#if($themeLocation=="before")

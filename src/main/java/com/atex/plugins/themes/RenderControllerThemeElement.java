@@ -72,6 +72,7 @@ public class RenderControllerThemeElement extends RenderControllerBase {
 
                 m.getLocal().setAttribute("theme", themePolicy.getContentId().getContentIdString());
                 m.getLocal().setAttribute("files", allfiles);
+                m.getLocal().setAttribute("mediaType", themePolicy.getMediaType());
             }
 
         } catch (Exception e) {
