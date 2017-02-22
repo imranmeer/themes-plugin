@@ -23,84 +23,48 @@ public class ThemeElementPolicy extends ElementPolicy {
 
     public List<WebFileResource> getFiles(String type) throws CMException, IOException {
 
-        if(type.equals("screen-css")){
-            final String dupname = "cssdir";
-            final String duppolicy = "cssfile";
+        String dupname;
+        String duppolicy;
 
-            final DuplicatorPolicy dup = (DuplicatorPolicy) getChildPolicy(dupname);
-
-            if (dup != null) {
-                final List duplist = dup.getDuplicatorElements();
-
-                if (duplist != null) {
-                    final List<WebFileResource> files = new ArrayList<WebFileResource>(duplist.size());
-
-                    for (int i = 0; i < duplist.size(); i++) {
-
-                        final FilePolicy fp = (FilePolicy) ((DuplicatorPolicy.DuplicatorElement) duplist.get(i)).getChildPolicy(duppolicy);
-                        final String filePath = fp.getFilePath();
-                        final String fileName = fp.getFileName();
-
-                        if (filePath != null && fileName != null && !fileName.endsWith("-print.css")) {
-                            final String fileFullName = fp.getFilePath() + "/" + fp.getFileName();
-                            files.add(new WebFileResource(fp.getFileInfo(fileFullName)));
-                        }
-                    }
-                    return files;
-                }
-            }
-
-        }else if(type.equals("print-css")){
-            final String dupname = "cssdir";
-            final String duppolicy = "cssfile";
-
-            final DuplicatorPolicy dup = (DuplicatorPolicy) getChildPolicy(dupname);
-
-            if (dup != null) {
-                final List duplist = dup.getDuplicatorElements();
-
-                if (duplist != null) {
-                    final List<WebFileResource> files = new ArrayList<WebFileResource>(duplist.size());
-
-                    for (int i = 0; i < duplist.size(); i++) {
-
-                        final FilePolicy fp = (FilePolicy) ((DuplicatorPolicy.DuplicatorElement) duplist.get(i)).getChildPolicy(duppolicy);
-                        final String filePath = fp.getFilePath();
-                        final String fileName = fp.getFileName();
-
-                        if (filePath != null && fileName != null && fileName.endsWith("-print.css")) {
-                            final String fileFullName = fp.getFilePath() + "/" + fp.getFileName();
-                            files.add(new WebFileResource(fp.getFileInfo(fileFullName)));
-                        }
-                    }
-                    return files;
-                }
-            }
+        if(type.endsWith("-css")){
+            dupname = "cssdir";
+            duppolicy = "cssfile";
         }else{
-            final String dupname = type + "dir";
-            final String duppolicy = type + "file";
+            dupname = type + "dir";
+            duppolicy = type + "file";
+        }
 
-            final DuplicatorPolicy dup = (DuplicatorPolicy) getChildPolicy(dupname);
+        final DuplicatorPolicy dup = (DuplicatorPolicy) getChildPolicy(dupname);
 
-            if (dup != null) {
-                final List duplist = dup.getDuplicatorElements();
+        if (dup != null) {
+            final List duplist = dup.getDuplicatorElements();
 
-                if (duplist != null) {
-                    final List<WebFileResource> files = new ArrayList<WebFileResource>(duplist.size());
+            if (duplist != null) {
+                final List<WebFileResource> files = new ArrayList<WebFileResource>(duplist.size());
 
-                    for (int i = 0; i < duplist.size(); i++) {
+                for (int i = 0; i < duplist.size(); i++) {
 
-                        final FilePolicy fp = (FilePolicy) ((DuplicatorPolicy.DuplicatorElement) duplist.get(i)).getChildPolicy(duppolicy);
-                        final String filePath = fp.getFilePath();
-                        final String fileName = fp.getFileName();
+                    final FilePolicy fp = (FilePolicy) ((DuplicatorPolicy.DuplicatorElement) duplist.get(i)).getChildPolicy(duppolicy);
+                    final String filePath = fp.getFilePath();
+                    final String fileName = fp.getFileName();
 
-                        if (filePath != null && fileName != null) {
-                            final String fileFullName = fp.getFilePath() + "/" + fp.getFileName();
+                    if (filePath != null && fileName != null) {
+                        final String fileFullName = fp.getFilePath() + "/" + fp.getFileName();
+
+                        if(type.equals("print-css")){
+                            if(fileName.endsWith("-print.css")){
+                                files.add(new WebFileResource(fp.getFileInfo(fileFullName)));
+                            }
+                        }else if(type.equals("screen-css")){
+                            if(!fileName.endsWith("-print.css")){
+                                files.add(new WebFileResource(fp.getFileInfo(fileFullName)));
+                            }
+                        }else{
                             files.add(new WebFileResource(fp.getFileInfo(fileFullName)));
                         }
                     }
-                    return files;
                 }
+                return files;
             }
         }
 
