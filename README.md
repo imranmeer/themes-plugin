@@ -7,13 +7,13 @@ To add the plugin to the project, add the following to your top level pom.xml.
     <dependency>
       <groupId>com.atex.gong.plugins</groupId>
       <artifactId>themes-plugin</artifactId>
-      <version>1.0</version>
+      <version>1.2</version>
     </dependency>
     
     <dependency>
       <groupId>com.atex.gong.plugins</groupId>
       <artifactId>themes-plugin</artifactId>
-      <version>1.0</version>
+      <version>1.2</version>
       <classifier>contentdata</classifier>
     </dependency>
     
