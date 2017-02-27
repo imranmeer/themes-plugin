@@ -72,6 +72,8 @@ public class RenderControllerThemeElement extends RenderControllerBase {
 
                 m.getLocal().setAttribute("theme", themePolicy.getContentId().getContentIdString());
                 m.getLocal().setAttribute("files", allfiles);
+                m.getLocal().setAttribute("isPrintCssExist", themePolicy.isPrintCssExist());
+                m.getLocal().setAttribute("isScreenCssExist", themePolicy.isScreenCssExist());
             }
 
         } catch (Exception e) {

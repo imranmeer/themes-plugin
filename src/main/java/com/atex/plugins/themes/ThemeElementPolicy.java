@@ -23,8 +23,16 @@ public class ThemeElementPolicy extends ElementPolicy {
 
     public List<WebFileResource> getFiles(String type) throws CMException, IOException {
 
-        final String dupname = type + "dir";
-        final String duppolicy = type + "file";
+        String dupname;
+        String duppolicy;
+
+        if(type.endsWith("-css")){
+            dupname = "cssdir";
+            duppolicy = "cssfile";
+        }else{
+            dupname = type + "dir";
+            duppolicy = type + "file";
+        }
 
         final DuplicatorPolicy dup = (DuplicatorPolicy) getChildPolicy(dupname);
 
@@ -42,12 +50,24 @@ public class ThemeElementPolicy extends ElementPolicy {
 
                     if (filePath != null && fileName != null) {
                         final String fileFullName = fp.getFilePath() + "/" + fp.getFileName();
-                        files.add(new WebFileResource(fp.getFileInfo(fileFullName)));
+
+                        if(type.equals("print-css")){
+                            if(fileName.endsWith("-print.css")){
+                                files.add(new WebFileResource(fp.getFileInfo(fileFullName)));
+                            }
+                        }else if(type.equals("screen-css")){
+                            if(!fileName.endsWith("-print.css")){
+                                files.add(new WebFileResource(fp.getFileInfo(fileFullName)));
+                            }
+                        }else{
+                            files.add(new WebFileResource(fp.getFileInfo(fileFullName)));
+                        }
                     }
                 }
                 return files;
             }
         }
+
         return null;
     }
 
@@ -72,5 +92,57 @@ public class ThemeElementPolicy extends ElementPolicy {
             LOG.log(Level.WARNING, e.getLocalizedMessage(), e);
         }
         return null;
+    }
+
+    public boolean isPrintCssExist() throws CMException, IOException{
+        boolean exist = false;
+        final String dupname = "cssdir";
+        final String duppolicy = "cssfile";
+
+        final DuplicatorPolicy dup = (DuplicatorPolicy) getChildPolicy(dupname);
+
+        if (dup != null) {
+            final List duplist = dup.getDuplicatorElements();
+
+            if (duplist != null) {
+                final List<WebFileResource> files = new ArrayList<WebFileResource>(duplist.size());
+                for (int i = 0; i < duplist.size(); i++) {
+                    final FilePolicy fp = (FilePolicy) ((DuplicatorPolicy.DuplicatorElement) duplist.get(i)).getChildPolicy(duppolicy);
+                    final String fileName = fp.getFileName();
+
+                    if (fileName != null && fileName.endsWith("-print.css")) {
+                        exist = true;
+                        break;
+                    }
+                }
+            }
+        }
+        return exist;
+    }
+
+    public boolean isScreenCssExist() throws CMException, IOException{
+        boolean exist = false;
+        final String dupname = "cssdir";
+        final String duppolicy = "cssfile";
+
+        final DuplicatorPolicy dup = (DuplicatorPolicy) getChildPolicy(dupname);
+
+        if (dup != null) {
+            final List duplist = dup.getDuplicatorElements();
+
+            if (duplist != null) {
+                final List<WebFileResource> files = new ArrayList<WebFileResource>(duplist.size());
+                for (int i = 0; i < duplist.size(); i++) {
+                    final FilePolicy fp = (FilePolicy) ((DuplicatorPolicy.DuplicatorElement) duplist.get(i)).getChildPolicy(duppolicy);
+                    final String fileName = fp.getFileName();
+
+                    if (fileName != null && !fileName.endsWith("-print.css")) {
+                        exist = true;
+                        break;
+                    }
+                }
+            }
+        }
+        return exist;
     }
 }
