@@ -3,20 +3,20 @@
 
 #if ($filetype=="css")
 	#if($themeLocation=="before")
-		#if($isPrintCssExist)
-    <link rel="stylesheet" type="text/css" media="print" href="/theme/$theme/print-css">
-		#end
 		#if($isScreenCssExist)
-    <link rel="stylesheet" type="text/css" media="screen" href="/theme/$theme/screen-css">
+        <link rel="stylesheet" type="text/css" media="screen" href="/theme/$theme/screen-css">
+		#end
+		#if($isPrintCssExist)
+    		<link rel="stylesheet" type="text/css" media="print" href="/theme/$theme/print-css">
 		#end
 		#parse("com.atex.plugins.themes.PluginsCss.vm")
 	#else
 		#parse("com.atex.plugins.themes.PluginsCss.vm")
-		#if($isPrintCssExist)
-    <link rel="stylesheet" type="text/css" media="print" href="/theme/$theme/print-css">
-		#end
 		#if($isScreenCssExist)
-    <link rel="stylesheet" type="text/css" media="screen" href="/theme/$theme/screen-css">
+		    <link rel="stylesheet" type="text/css" media="screen" href="/theme/$theme/screen-css">
+		#end
+		#if($isPrintCssExist)
+	        <link rel="stylesheet" type="text/css" media="print" href="/theme/$theme/print-css">
 		#end
 	#end
 #elseif($filetype=="jshead")

@@ -1,11 +1,5 @@
 package com.atex.plugins.themes;
 
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
 import com.polopoly.cm.ContentId;
 import com.polopoly.cm.app.policy.CheckboxPolicy;
 import com.polopoly.cm.app.policy.ContentSingleSelectPolicy;
@@ -13,6 +7,12 @@ import com.polopoly.cm.app.policy.DuplicatorPolicy;
 import com.polopoly.cm.app.policy.FilePolicy;
 import com.polopoly.cm.client.CMException;
 import com.polopoly.cm.policy.Policy;
+
+import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * @author peterabjohns
@@ -95,6 +95,10 @@ public class ThemeElementPolicy extends ElementPolicy {
     }
 
     public boolean isPrintCssExist() throws CMException, IOException{
+        return getPrintExistence(true);
+    }
+
+    private boolean getPrintExistence(boolean state) throws CMException {
         boolean exist = false;
         final String dupname = "cssdir";
         final String duppolicy = "cssfile";
@@ -110,7 +114,7 @@ public class ThemeElementPolicy extends ElementPolicy {
                     final FilePolicy fp = (FilePolicy) ((DuplicatorPolicy.DuplicatorElement) duplist.get(i)).getChildPolicy(duppolicy);
                     final String fileName = fp.getFileName();
 
-                    if (fileName != null && fileName.endsWith("-print.css")) {
+                    if (fileName != null && fileName.endsWith("-print.css") == state) {
                         exist = true;
                         break;
                     }
@@ -121,28 +125,7 @@ public class ThemeElementPolicy extends ElementPolicy {
     }
 
     public boolean isScreenCssExist() throws CMException, IOException{
-        boolean exist = false;
-        final String dupname = "cssdir";
-        final String duppolicy = "cssfile";
 
-        final DuplicatorPolicy dup = (DuplicatorPolicy) getChildPolicy(dupname);
-
-        if (dup != null) {
-            final List duplist = dup.getDuplicatorElements();
-
-            if (duplist != null) {
-                final List<WebFileResource> files = new ArrayList<WebFileResource>(duplist.size());
-                for (int i = 0; i < duplist.size(); i++) {
-                    final FilePolicy fp = (FilePolicy) ((DuplicatorPolicy.DuplicatorElement) duplist.get(i)).getChildPolicy(duppolicy);
-                    final String fileName = fp.getFileName();
-
-                    if (fileName != null && !fileName.endsWith("-print.css")) {
-                        exist = true;
-                        break;
-                    }
-                }
-            }
-        }
-        return exist;
+        return getPrintExistence(false);
     }
 }

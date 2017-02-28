@@ -1,33 +1,5 @@
 package com.atex.plugins.themes;
 
-import java.io.ByteArrayOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.InputStreamReader;
-import java.io.OutputStreamWriter;
-import java.io.PrintWriter;
-import java.io.StringReader;
-import java.io.StringWriter;
-import java.io.Writer;
-import java.util.Date;
-import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import javax.servlet.ServletConfig;
-import javax.servlet.ServletException;
-import javax.servlet.http.HttpServlet;
-import javax.servlet.http.HttpServletRequest;
-import javax.servlet.http.HttpServletResponse;
-
-import org.apache.commons.lang.StringUtils;
-import org.apache.velocity.app.Velocity;
-import org.apache.velocity.app.VelocityEngine;
-import org.apache.velocity.tools.view.context.ChainedContext;
-import org.apache.velocity.tools.view.servlet.ServletToolboxManager;
-import org.mozilla.javascript.ErrorReporter;
-import org.mozilla.javascript.EvaluatorException;
-
 import com.google.common.collect.Lists;
 import com.polopoly.application.servlet.ApplicationServletUtil;
 import com.polopoly.cm.ContentId;
@@ -39,6 +11,24 @@ import com.polopoly.cm.client.CmClientBase;
 import com.polopoly.cm.policy.PolicyCMServer;
 import com.yahoo.platform.yui.compressor.CssCompressor;
 import com.yahoo.platform.yui.compressor.JavaScriptCompressor;
+import org.apache.commons.lang.StringUtils;
+import org.apache.velocity.app.Velocity;
+import org.apache.velocity.app.VelocityEngine;
+import org.apache.velocity.tools.view.context.ChainedContext;
+import org.apache.velocity.tools.view.servlet.ServletToolboxManager;
+import org.mozilla.javascript.ErrorReporter;
+import org.mozilla.javascript.EvaluatorException;
+
+import javax.servlet.ServletConfig;
+import javax.servlet.ServletException;
+import javax.servlet.http.HttpServlet;
+import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.*;
+import java.util.Date;
+import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  * Exports the submitted form results.
@@ -108,7 +98,7 @@ public class ThemeServlet extends HttpServlet {
             }
 
             String textType;
-            if (type.startsWith("css")) {
+            if (type.endsWith("css")) {
                 textType = "css";
             } else {
                 textType = "javascript";

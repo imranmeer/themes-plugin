@@ -42,9 +42,11 @@ Add a theme .content for to your project, add put the files needed as relative t
     inputtemplate:com.atex.plugins.themes.ThemeElement
     securityparent:GreenfieldOnline.d
     name:My Theme
-    component:cssdir:count:1
+    component:cssdir:count:2
     component:cssdir[0]/cssfile:fileName:index.css
-    component:cssdir[0]/cssfile:path:root/css/cssdir[0]/cssfile
+    component:cssdir[0]/cssfile:path:file
+    component:cssdir[1]/cssfile:fileName:index-print.css
+    component:cssdir[1]/cssfile:path:file
     component:isBase:value:true
     component:jsfootdir:count:2
     component:jsfootdir[0]/jsfootfile:fileName:index.js
@@ -58,7 +60,7 @@ Add a theme .content for to your project, add put the files needed as relative t
     #### CSS
     file:file/index.css:assets/css/index.css
     file:file/index-ie8.css:assets/css/index-ie8.css
-    file:file/index-sg.css:assets/css/index-sg.css
+    file:file/index-print.css:assets/css/index-print.css
     
     #### JavaScript
     file:file/index.js:assets/js/build/index.js
@@ -92,6 +94,8 @@ Add a theme .content for to your project, add put the files needed as relative t
     file:file/transparent-bg-1x1.png:assets/img/structure/transparent-bg-1x1.png
     
     ### END THEME ###
+
+Note: Any CSS file with a suffix of "-print" will be assumed to be a print media CSS file. All others are assumed to be screen media.
 
 The plugin also has a configuration panel which can be located in ... > SiteEngine > Configuration > Plugins > Themes Plugin.
 
