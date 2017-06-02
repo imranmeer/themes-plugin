@@ -1,23 +1,5 @@
 package com.atex.plugins.themes.widget;
 
-import java.io.IOException;
-import java.text.NumberFormat;
-import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.List;
-import java.util.Map;
-import java.util.Set;
-import java.util.Map.Entry;
-import java.util.logging.Level;
-import java.util.logging.Logger;
-
-import javax.servlet.ServletRequest;
-
-//import uk.co.archant.collection.Prioritized;
-//import uk.co.archant.collection.PriorityPublishingQueuePolicy;
-
 import com.polopoly.cm.ContentId;
 import com.polopoly.cm.DefaultMajorNames;
 import com.polopoly.cm.app.ContentSession;
@@ -26,19 +8,23 @@ import com.polopoly.cm.app.widget.OStandardContentListEntryPolicyWidget;
 import com.polopoly.cm.client.CMException;
 import com.polopoly.cm.collections.ContentListRead;
 import com.polopoly.cm.policy.ContentPolicy;
-import com.polopoly.cm.policy.Policy;
 import com.polopoly.cm.policy.PolicyCMServer;
-import com.polopoly.cm.policy.PolicyImplBase;
 import com.polopoly.cm.policy.PolicyUtil;
 import com.polopoly.orchid.OrchidException;
 import com.polopoly.orchid.context.Device;
 import com.polopoly.orchid.context.OrchidContext;
-import com.polopoly.siteengine.field.properties.ComponentMapPolicy;
 import com.polopoly.statistics.client.StatisticsClient;
 import com.polopoly.statistics.pageviews.PageViews;
 import com.polopoly.statistics.pageviews.PageViewsManager;
 import com.polopoly.statistics.time.TimeResolution;
 import com.polopoly.util.LocaleUtil;
+
+import javax.servlet.ServletRequest;
+import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 public class OContentListEntryBasePolicyWidget extends OStandardContentListEntryPolicyWidget {
 
@@ -198,101 +184,10 @@ public class OContentListEntryBasePolicyWidget extends OStandardContentListEntry
         renderEditInfo(device, oc);
 
         renderStatistics(device, oc);
-        //renderPriorityInfo( device, oc);
         renderFooter(device, oc);
     }
-    
-    private List getSitesWithPriority( ContentPolicy articleToCheck ) throws CMException {
-    	// Get the sites with priorities
-    	
-    	ComponentMapPolicy priorites = (ComponentMapPolicy) contentPolicy.getChildPolicy("sitePriorities");
-    	if( priorites == null ) {
-    		// Return empty array list if no site-priority mapping exist
-    		return new ArrayList();
-    	}
-    	Set prioritySet = priorites.getComponentMap().entrySet();    	
-    	
-    	List sites = new ArrayList();
 
-    	// Loop through them
-    	for (Iterator iter = prioritySet.iterator(); iter.hasNext();) {
-			Entry entry = (Entry) iter.next();
-			sites.add( entry.getKey() );			
-		}
-    	return sites;
-    }
 
-    /*private void renderPriorityInfo(Device device, OrchidContext oc) throws IOException {
-            	
-    	if( contentPolicy instanceof Prioritized ) {
-        	device.print("<br><i>Priorities (per site):</i>");
-
-        	List sites;
-			try {
-				sites = getSitesWithPriority( (ContentPolicy) contentPolicy );
-	        	for (Iterator iter = sites.iterator(); iter.hasNext();) {
-					String site = (String) iter.next();
-		        	int originalPriority = ((Prioritized) contentPolicy ).getSitePriority( site );
-		        	outputPriorityInfoToDevice(device, site, originalPriority);				
-				}
-
-			} catch (Exception e) {
-				logger.warning("Failed to get site priorities for " + contentPolicy.getContentId().getContentIdString() + " due to " + e );
-				e.printStackTrace();
-			}
-        	
-        	int originalPriority = ((Prioritized) contentPolicy ).getDefaultPriority();
-        	outputPriorityInfoToDevice(device, "Default", originalPriority);
-
-        }    		
-	}*/
-
-    /**
-     * Displays priority information for this content, taking into account the priority factor of the
-     * parent queue if the content is being rendered in a priority publishing queue.
-     */
-	/*private void outputPriorityInfoToDevice(Device device, String name, int originalPriority) throws IOException {
-        if( contentPolicy instanceof Prioritized ) {
-        	double priorityFactor = -1;
-            if (entryContainer.getPolicy() instanceof PolicyImplBase) {
-            	Policy parentPolicy = ((PolicyImplBase)entryContainer.getPolicy()).getParentPolicy();
-            	if (parentPolicy instanceof PriorityPublishingQueuePolicy) {
-            		PriorityPublishingQueuePolicy priorityQueue = (PriorityPublishingQueuePolicy) parentPolicy;
-            		priorityFactor = priorityQueue.getPriorityFactor();
-            		logger.fine("Priority queue " + priorityQueue.getContentId().getContentId().getContentIdString() + " priorityFactor: " + priorityFactor);
-            	} else {
-            		logger.fine("Not priority queue");
-            	}
-            }
-
-        	Prioritized prioritized = (Prioritized) contentPolicy;
-			Date publishedDate = prioritized.getPublishedDate();
-			int defaultPriority = prioritized.getDefaultPriority();
-			double currentPrio;
-			if (priorityFactor!=-1) {
-				currentPrio = PriorityPublishingQueuePolicy.calculateDynamicPriority(originalPriority, publishedDate, priorityFactor);
-			} else {
-				currentPrio = PriorityPublishingQueuePolicy.calculateDynamicPriorityUsingDefaultDegradation(originalPriority, publishedDate);
-			}
-			logger.fine(contentPolicy.getContentId().getContentId().getContentIdString() +  " current priority: " + currentPrio);
-
-			String currentPrioString = NumberFormat.getNumberInstance().format( currentPrio );
-			String lowest = "";
-			if( currentPrio == 5.0 ) {
-				lowest = " (Lowest)";
-			}
-			
-			String extraInfo = " (<i>for this queue</i>)";
-			if (priorityFactor==-1) {
-				extraInfo = " (<i>using default degradation factor</i>)";
-			}
-			
-			String priorityInfo = name + ": Original priority: " + originalPriority + " Current priority" + extraInfo + ":" + currentPrioString + lowest ;        	
-			if( priorityInfo != null ) {
-				device.println("<p class='meta'>" + priorityInfo + "</p>");
-			}
-        }
-	}*/
 
 	protected StatisticsData getStatisticsData(OrchidContext oc) throws CMException
     {

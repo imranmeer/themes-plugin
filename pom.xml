@@ -90,26 +90,6 @@
       <artifactId>baseline</artifactId>
       <version>${baseline.version}</version>
     </dependency>
-    <dependency>
-      <groupId>com.atex.plugins</groupId>
-      <artifactId>baseline</artifactId>
-      <version>${baseline.version}</version>
-      <classifier>contentdata</classifier>
-    </dependency>
-    <dependency>
-      <groupId>com.atex.plugins.gong</groupId>
-      <artifactId>site</artifactId>
-      <version>2.3-SNAPSHOT</version>
-      <classifier>contentdata</classifier>
-    </dependency>
-    <dependency>
-      <groupId>com.atex.plugins.gong</groupId>
-      <artifactId>site</artifactId>
-      <version>2.3-SNAPSHOT</version>
-      <type>jar</type>
-      <scope>runtime</scope>
-      <optional>true</optional>
-    </dependency>
 
     <dependency>
       <groupId>com.yahoo.platform.yui</groupId>
