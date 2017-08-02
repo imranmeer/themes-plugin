@@ -53,6 +53,16 @@ public class ThemesConfigurationPolicy extends BaselinePolicy implements ThemesC
         return getSingleValue("preserve-semi", "").equals("yes");
     }
 
+    @Override
+    public boolean getCompressCSSSettings() {
+        return getSingleValue("compressCSS", "").equals("yes");
+    }
+
+    @Override
+    public boolean getCompressJavascriptSettings() {
+            return getSingleValue("compressJavascript", "").equals("yes");
+    }
+
     private String getSingleValue(final String name, final String defaultValue) {
         return Optional
                 .fromNullable(getChildValue(name, defaultValue))

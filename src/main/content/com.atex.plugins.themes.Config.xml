@@ -32,6 +32,18 @@
       <param name="label_1">NO</param>
       <param name="value_1">no</param>
     </field>
+    <field name="compressCSS" input-template="p.RadioButtonGroup" label="Compress CSS">
+      <param name="label_0">YES</param>
+      <param name="value_0">yes</param>
+      <param name="label_1">NO</param>
+      <param name="value_1">no</param>
+    </field>
+    <field name="compressJavascript" input-template="p.RadioButtonGroup" label="Compress Javascript">
+      <param name="label_0">YES</param>
+      <param name="value_0">yes</param>
+      <param name="label_1">NO</param>
+      <param name="value_1">no</param>
+    </field>
     <field name="cache-time" input-template="p.TextInput" label="Cache Time">
       <help>Default cache time for 1 year = (60 * 60 * 24 * 365) = 31536000</help>
     </field>

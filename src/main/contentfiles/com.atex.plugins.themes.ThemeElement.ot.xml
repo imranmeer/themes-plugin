@@ -9,6 +9,7 @@
 		</contentref>
 		<component group="polopoly.Content" name="name">Themes output template</component>
 		<component group="output/modelKeyMode" name="selected">no-cache</component>
+		<component group="output/modelPaths" name="value">m.local.content.contentId;m.request.httpRequest.attributes.filetype</component>
 		<contentref group="output/renderer" name="selected">
 			<contentid>
 				<externalid>p.siteengine.VelocityRenderer</externalid>

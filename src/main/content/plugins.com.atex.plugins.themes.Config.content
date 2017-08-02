@@ -6,5 +6,7 @@ component:line-break:value:-1
 component:warn:selected:no
 component:nomunge:selected:yes
 component:debugMode:selected:no
+component:compressCSS:selected:no
+component:compressJavascript:selected:no
 component:cache-time:value:31536000
 component:preserve-semi:selected:no

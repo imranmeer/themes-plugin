@@ -17,4 +17,8 @@ public interface ThemesConfiguration {
 
     boolean getPreserveSemiSettings();
 
+    boolean getCompressCSSSettings();
+
+    boolean getCompressJavascriptSettings();
+    
 }
