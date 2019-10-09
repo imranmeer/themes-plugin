@@ -85,9 +85,23 @@ public class ThemeServlet extends HttpServlet {
                 throw new ServletException("No type specified");
             }
 
-            ContentId cid = ContentIdFactory.createContentId(themeCid);
+            ThemeElementPolicy theme;
 
-            final ThemeElementPolicy theme = (ThemeElementPolicy) cmServer.getPolicy(cid);
+            try {
+                String unversionedThemeCid = themeCid.substring(0, themeCid.lastIndexOf("."));
+                ContentId unversionedCid = ContentIdFactory.createContentId(unversionedThemeCid);
+                theme = (ThemeElementPolicy) cmServer.getPolicy(unversionedCid);
+                ContentId latestThemeCid = theme.getContentId();
+
+                if (!latestThemeCid.getContentIdString().equalsIgnoreCase(themeCid)) {
+                    response.sendRedirect("/" + parts[0] + "/" + latestThemeCid.getContentIdString() + "/" + parts[2]);
+                }
+            } catch (Exception e) {
+                LOG.warning(e.getMessage());
+            }
+
+            ContentId cid = ContentIdFactory.createContentId(themeCid);
+            theme = (ThemeElementPolicy) cmServer.getPolicy(cid);
             final List<WebFileResource> files = theme.getFiles(type);
 
             final ThemeElementPolicy themebase = theme.getBaseThemePolicy();
